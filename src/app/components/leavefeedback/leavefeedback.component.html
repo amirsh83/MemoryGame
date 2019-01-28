@@ -1,0 +1,19 @@
+<h4>
+  We would love to get your feedback: 
+</h4>
+
+<form #feedbackForm="ngForm" (ngSubmit)="addfeedback() ; feedbackForm.reset()">
+
+  <div>
+      <mat-form-field>
+          <input matInput type="text" name="feedbacktext" [(ngModel)]="feedback.feedbacktext" placeholder="text">
+      </mat-form-field>
+  </div>
+
+  <div>
+      <button mat-button type="submit" [disabled]="feedbackForm.form.invalid">
+          Submit &nbsp;
+       
+      </button>
+  </div>
+</form>

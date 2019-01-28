@@ -1,0 +1,15 @@
+.board{
+        width: 640px;
+        height: 640px;
+        margin: auto;
+        display: flex;
+        flex-wrap: wrap;
+        perspective: 1000px;
+    }
+
+    h4{
+        text-align: center;
+        margin-top: 50px;
+        color:darkblue;
+        text-shadow: 2px 2px black;  
+    }
