@@ -1,0 +1,31 @@
+
+<h4>Contact Us</h4>
+
+
+<form #contactusForm="ngForm"  (ngSubmit)="addMessage() ; contactusForm.reset()">
+
+  <div>
+      <mat-form-field>
+          <input matInput type="text" name="phone" [(ngModel)]="message.phone" placeholder="phone">
+      </mat-form-field>
+    
+  </div>
+  <div>
+    <mat-form-field>
+        <input matInput type="email" name="email" [(ngModel)]="message.email" placeholder="email">
+    </mat-form-field>
+  
+</div>
+  <div>
+      <mat-form-field>
+          <input matInput type="test" name="message"  [(ngModel)]="message.message" placeholder="message" required #password="ngModel">
+      </mat-form-field>
+      <span *ngIf="message.dirty">message text is required</span>
+  </div>
+  <div>
+      <button mat-button type="submit" [disabled]="contactusForm.form.invalid">
+          Submit &nbsp;
+         
+      </button>
+  </div>
+</form>

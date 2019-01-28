@@ -1,0 +1,8 @@
+.board{
+    width: 640px;
+    height: 640px;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    perspective: 700x;
+}

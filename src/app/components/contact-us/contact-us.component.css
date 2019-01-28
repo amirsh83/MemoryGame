@@ -1,0 +1,52 @@
+mat-form-field {
+    display: inline-block;
+    width: 200px;
+    font-size: 18px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+}
+
+h4{
+    text-align: center;
+    margin-top: 50px;
+    color:darkblue;
+    text-shadow: 2px 2px black; 
+}
+
+form{
+text-align: center;
+margin-top: 50px;
+
+}
+
+button {
+    width: 100px;
+    font-size: 17px;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-weight: bold;
+    display: inline-blk;
+    /* TO DO once it works! : */
+    margin-right: 20px;
+    position: initial;
+    color: lightgreen;
+
+}
+
+errorMsgDiv {
+    display: inline-block;
+    line-height: normal;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+span {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+    color: red
+}
+
+input{
+    color: black;
+}
+
+
+

@@ -1,0 +1,25 @@
+
+
+<h4>Users Feedbacks</h4>
+
+<div>
+                 
+  <table border="1px solid black" align="center" > 
+   <tr>
+    <th>Date</th>
+       <th>User Name</th>
+       <th>Feedback</th>
+      
+   </tr>
+   <tr *ngFor="let f of feedback" >
+       <td>{{f.feedbackdate| date:'short'}}</td>
+       <td>{{f.username}}</td>
+       <td>{{f.feedbacktext}}</td>
+    
+     
+   </tr>
+  
+
+  
+  </table>
+  </div>
