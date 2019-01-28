@@ -1,0 +1,88 @@
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.IO.Compression.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\VBCSCompiler.exe
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\SqlServerTypes\x64\msvcr100.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\SqlServerTypes\x64\SqlServerSpatial120.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\SqlServerTypes\x86\msvcr100.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\SqlServerTypes\x86\SqlServerSpatial120.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\04 -  WebApi.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\04 -  WebApi.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\04 -  WebApi.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\csc.exe
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\csc.exe.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\csc.rsp
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\csi.exe
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\csi.exe.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\csi.rsp
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\Microsoft.Win32.Primitives.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.AppContext.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Collections.Immutable.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Console.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Diagnostics.FileVersionInfo.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Diagnostics.Process.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Diagnostics.StackTrace.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.IO.FileSystem.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.IO.FileSystem.DriveInfo.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.IO.FileSystem.Primitives.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.IO.Pipes.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Reflection.Metadata.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Security.AccessControl.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Security.Claims.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Security.Cryptography.Algorithms.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Security.Cryptography.Encoding.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Security.Cryptography.Primitives.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Security.Cryptography.X509Certificates.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Security.Principal.Windows.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Threading.Thread.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.ValueTuple.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Xml.ReaderWriter.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Xml.XmlDocument.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Xml.XPath.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\System.Xml.XPath.XDocument.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\vbc.exe
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\vbc.exe.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\vbc.rsp
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\roslyn\VBCSCompiler.exe.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\02 - Business Entity Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\03 - Business Logic Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\EntityFramework.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\EntityFramework.SqlServer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\FromHeaderAttribute.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\Newtonsoft.Json.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Net.Http.Formatting.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Web.Cors.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Web.Http.Cors.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Web.Http.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Web.Http.WebHost.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\DataAnnotationsExtensions.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\01 - Data Access Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\02 - Business Entity Layer.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\02 - Business Entity Layer.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\03 - Business Logic Layer.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\03 - Business Logic Layer.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\EntityFramework.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\EntityFramework.SqlServer.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\Newtonsoft.Json.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Net.Http.Formatting.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Web.Http.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Web.Http.Cors.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\System.Web.Http.WebHost.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\01 - Data Access Layer.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\bin\01 - Data Access Layer.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\obj\Debug\04 -  WebApi.csprojAssemblyReference.cache
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\obj\Debug\04 -  WebApi.csproj.CoreCompileInputs.cache
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\obj\Debug\04 -  WebApi.csproj.CopyComplete
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\obj\Debug\04 -  WebApi.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\04 -  WebApi\obj\Debug\04 -  WebApi.pdb

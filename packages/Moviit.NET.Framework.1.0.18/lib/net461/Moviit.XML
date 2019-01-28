@@ -1,0 +1,2961 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Moviit</name>
+    </assembly>
+    <members>
+        <member name="T:Moviit.Azure.AzureDbConfig">
+            <summary>
+            Improves integration of Entity Framework with Azure databases infrastructure by configuring an Sql execution strategy fit to work with Azure.
+            This reduces timeouts and DbContext errors.
+            
+            To use: In web.config, look for the <code>entityFramework</code> tag and add the <c>codeConfigurationType</c> attribute to it, like so:
+            <entityFramework codeConfigurationType="Moviit.Azure.AzureDbConfig, Moviit">...</entityFramework>
+            </summary>
+        </member>
+        <member name="F:Moviit.Azure.AzureDbConfig.MaxRetries">
+            <summary>
+            The maximum amount of times the request should be retried if failed.
+            </summary>
+        </member>
+        <member name="F:Moviit.Azure.AzureDbConfig.MaxDelay">
+            <summary>
+            The maximum time (in seconds) the strategy provider is allowed to wait between retries.
+            Each failure increases the wait time exponentially until this value is reached.
+            </summary>
+        </member>
+        <member name="F:Moviit.Azure.AzureDbConfig.ContextVariableName">
+            <summary>
+            The name of the variable used to save the status of strategy suspension.
+            </summary>
+        </member>
+        <member name="M:Moviit.Azure.AzureDbConfig.#ctor">
+            <summary>
+            Instantiates a new AzureDbConfig object.
+            </summary>
+        </member>
+        <member name="P:Moviit.Azure.AzureDbConfig.ExecutionStrategySuspended">
+            <summary>
+            Gets or sets a value indicating whether Azure Execution Strategy is suspended. Useful to disable in not supported operations.
+            </summary>
+            <value>
+              <c>true</c> if [execution strategy suspended]; otherwise, <c>false</c>.
+            </value>
+        </member>
+        <member name="M:Moviit.Azure.AzureDbConfig.SuspendExecutionStrategy">
+            <summary>
+            Suspends the Azure Execution Strategy.
+            </summary>
+        </member>
+        <member name="M:Moviit.Azure.AzureDbConfig.ResumeExecutionStrategy">
+            <summary>
+            Resumes the Azure Execution Strategy.
+            </summary>
+        </member>
+        <member name="T:Moviit.Azure.AzureTransaction">
+            <summary>
+            Handle the Entity Framework transactions in Azure SQL disabling the execution strategy because user
+            initiated transaction are not supported right now. See more https://msdn.microsoft.com/es-es/data/dn307226.
+            </summary>
+            <seealso cref="T:System.IDisposable" />
+        </member>
+        <member name="F:Moviit.Azure.AzureTransaction.transactionStartedPreviously">
+            <summary>
+            Indicates if it was an open transaction.
+            </summary>
+        </member>
+        <member name="M:Moviit.Azure.AzureTransaction.#ctor(System.Data.Entity.Database)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Moviit.Azure.AzureTransaction" /> class.
+            </summary>
+            <param name="db">The database context.</param>
+        </member>
+        <member name="M:Moviit.Azure.AzureTransaction.Begin">
+            <summary>
+            Begins the transaction for the given database context and resume the execution strategy application if there is not a previous transaction stacked.
+            </summary>
+        </member>
+        <member name="M:Moviit.Azure.AzureTransaction.Complete">
+            <summary>
+            Finalize the transaction for the given database context and resume the execution strategy application if there is not a previous transaction stacked.
+            </summary>
+        </member>
+        <member name="M:Moviit.Azure.AzureTransaction.Dispose">
+            <summary>
+            Resume the execution strategy application if there is not a previous transaction stacked.
+            </summary>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.IRequiredIfValidator">
+            <summary>
+            Provides the base functionality for classes implementing a specific required if validation.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.IRequiredIfValidator.ShouldRequire(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            When implemented in a derived class, checkes whether the current value should be required.
+            This will fire only if the value is null.
+            </summary>
+            <param name="context">The validation context.</param>
+            <returns>true if the value should be required; otherwise false.</returns>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.IRequiredIfValidator.GetErrorMessage(System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            When implemented in a derived class, returns a localized error message with the reason for requiring the value.
+            </summary>
+            <param name="context">The validation context.</param>
+            <returns>A localized error message with the reason for requiring the value.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.BeforeThisYearAttribute">
+            <summary>
+            A validator attribute that can be set to int properties to validate them as a year and assure they are lower to the current year with automatically localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.BeforeThisYearAttribute.#ctor">
+            <summary>
+            Instantiates a new BeforeThisYearAttribute object with localized messages from the ModelStateMessages resources.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.BeforeThisYearAttribute.IsValid(System.Object)">
+            <summary>
+            Validates that the given year is before the current year.
+            </summary>
+            <param name="value">The year to validate.</param>
+            <returns>A value indicating whether the date is valid or not.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.RequiredIfAttribute">
+            <summary>
+            Conditions requiring of a property on a model and provides localized error messages.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.RequiredIfAttribute.Validator">
+            <summary>
+            The name of the property to compare the current property to.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RequiredIfAttribute.#ctor(System.Type,System.ComponentModel.DataAnnotations.DataType)">
+            <summary>
+            Instantiates a new RequiredIfAttribute object.
+            </summary>
+            <param name="validatorType">The type that contains the validation method implementation (Must be of type <c>IRequiredIfValidator</c>).</param>
+            <param name="dataType">The type of data stored in the property.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RequiredIfAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validates the specified value with respect to the current validation attribute.
+            </summary>
+            <returns>
+            An instance of the <see cref="T:System.ComponentModel.DataAnnotations.ValidationResult"/> class. 
+            </returns>
+            <param name="value">The value to validate.</param><param name="validationContext">The context information about the validation operation.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.RequiredWithAttribute">
+            <summary>
+            Checks if the other property is not null and requires the current one, returning localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RequiredWithAttribute.#ctor(System.String,System.ComponentModel.DataAnnotations.DataType)">
+            <summary>
+            Instantiates a new RequiredWithAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the property to compare the current property to.</param>
+            <param name="dataType">The type of data stored in the two properties.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RequiredWithAttribute.IsValid(System.Object,System.Object)">
+            <summary>
+            Checks if the other value was set and validates that the current value is also set.
+            </summary>
+            <param name="value">The value extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherValue">The value extracted from the other property.</param>
+            <returns>true if the other value was not set, or both values were set; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.LowerThanOrEqualsToAttribute">
+            <summary>
+            Validates that the current value type property is lower than or equals to the other value type property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.LowerThanOrEqualsToAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new LowerThanOrEqualsToAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other property to compare the current value to.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.LowerThanOrEqualsToAttribute.IsValid(System.IComparable,System.Object)">
+            <summary>
+            Validates that the current value is lower than or equals to the other value.
+            </summary>
+            <param name="value">The current numeric value.</param>
+            <param name="otherValue">The other property's numeric value.</param>
+            <returns>true if the current value is lower than or equals to the other value; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.LowerThanAttribute">
+            <summary>
+            Validates that the current value type property is lower than the other value type property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.LowerThanAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new LowerThanAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other property to compare the current value to.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.LowerThanAttribute.IsValid(System.IComparable,System.Object)">
+            <summary>
+            Validates that the current value is lower than the other value.
+            </summary>
+            <param name="value">The current numeric value.</param>
+            <param name="otherValue">The other property's numeric value.</param>
+            <returns>true if the current value is lower than the other value; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.GreaterThanOrEqualsToAttribute">
+            <summary>
+            Validates that the current value type property is greater than or equals to the other value type property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.GreaterThanOrEqualsToAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new GreaterThenOrEqualsToAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other property to compare the current value to.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.GreaterThanOrEqualsToAttribute.IsValid(System.IComparable,System.Object)">
+            <summary>
+            Validates that the current value is greater than or equals to the other value.
+            </summary>
+            <param name="value">The current numeric value.</param>
+            <param name="otherValue">The other property's numeric value.</param>
+            <returns>true if the current value is greater than or equals to the other value; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.SameOrBeforeAttribute">
+            <summary>
+            Validates that the current DateTime property is the same or before the other DateTime property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.SameOrBeforeAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Instantiates a new AfterAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other DateTime property to compare the current date to.</param>
+            <param name="compareTime">(Optional) true to compare time along with the date; otherwise false.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.SameOrBeforeAttribute.IsValid(System.DateTime,System.DateTime)">
+            <summary>
+            Validates that the date property is the same or before the other date property.
+            </summary>
+            <param name="date">The date extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherDate">The date extracted from the other property.</param>
+            <returns>true if the current date is valid in relation to the other date; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.ValueCompareAttribute">
+            <summary>
+            Validates that the current property valid in comparison to the another property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.ValueCompareAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new ValueCompareAttribute object.
+            </summary>
+            <param name="propertyName">The name of the other DateTime property to compare the current date to.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.ValueCompareAttribute.IsValid(System.Object,System.Object)">
+            <summary>
+            Validates that the two properties are valid in relation to each other.
+            </summary>
+            <param name="value">The value extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherValue">The value extracted from the other property.</param>
+            <returns>true if the current value is valid in relation to the other value; otherwise false.</returns>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.ValueCompareAttribute.IsValid(System.IComparable,System.Object)">
+            <summary>
+            When overriden in a derived class validates that the current value is valid in comparison to the other value.
+            </summary>
+            <param name="value">The current numeric value.</param>
+            <param name="otherValue">The other property's numeric value.</param>
+            <returns>true if the current value is valid in comparison with the other value; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.DateCompareAttribute">
+            <summary>
+            Validates that the current DateTime property is after the other DateTime property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.DateCompareAttribute.CompareTime">
+            <summary>
+            Gets or sets the value indicating whether time should be compared along with the date (Default is false).
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.DateCompareAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Instantiates a new DateCompareAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other DateTime property to compare the current date to.</param>
+            <param name="compareTime">(Optional) true to compare time along with the date; otherwise false.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.DateCompareAttribute.IsValid(System.Object,System.Object)">
+            <summary>
+            Validates that the two properties are valid in relation to each other.
+            </summary>
+            <param name="value">The value extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherValue">The value extracted from the other property.</param>
+            <returns>true if the current value is valid in relation to the other value; otherwise false.</returns>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.DateCompareAttribute.IsValid(System.DateTime,System.DateTime)">
+            <summary>
+            Validates that the two dates are valid in relation to each other.
+            If CompareTime is false, the <c>date</c> and <c>otherDate</c> arguments will automatically be stripped of the time and left with the date only.
+            </summary>
+            <param name="date">The value extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherDate">The value extracted from the other property.</param>
+            <returns>true if the current value is valid in relation to the other value; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.BeforeAttribute">
+            <summary>
+            Validates that the current DateTime property is before the other DateTime property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.BeforeAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Instantiates a new AfterAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other DateTime property to compare the current date to.</param>
+            <param name="compareTime">(Optional) true to compare time along with the date; otherwise false.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.BeforeAttribute.IsValid(System.DateTime,System.DateTime)">
+            <summary>
+            Validates that the date property is before the other date property.
+            </summary>
+            <param name="date">The date extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherDate">The date extracted from the other property.</param>
+            <returns>true if the current date is valid in relation to the other date; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.GreaterThanAttribute">
+            <summary>
+            Validates that the current value type property is greater than the other value type property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.GreaterThanAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new GreaterThenAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other property to compare the current value to.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.GreaterThanAttribute.IsValid(System.IComparable,System.Object)">
+            <summary>
+            Validates that the current value is greater than the other value.
+            </summary>
+            <param name="value">The current numeric value.</param>
+            <param name="otherValue">The other property's numeric value.</param>
+            <returns>true if the current value is greater than the other value; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.SameOrAfterAttribute">
+            <summary>
+            Validates that the current DateTime property is the same or after the other DateTime property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.SameOrAfterAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Instantiates a new AfterAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other DateTime property to compare the current date to.</param>
+            <param name="compareTime">(Optional) true to compare time along with the date; otherwise false.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.SameOrAfterAttribute.IsValid(System.DateTime,System.DateTime)">
+            <summary>
+            Validates that the date property is the same or after the other date property.
+            </summary>
+            <param name="date">The date extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherDate">The date extracted from the other property.</param>
+            <returns>true if the current date is valid in relation to the other date; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.AfterAttribute">
+            <summary>
+            Validates that the current DateTime property is after the other DateTime property and returns localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.AfterAttribute.#ctor(System.String,System.Boolean)">
+            <summary>
+            Instantiates a new AfterAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the other DateTime property to compare the current date to.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.AfterAttribute.IsValid(System.DateTime,System.DateTime)">
+            <summary>
+            Validates that the date property is after the other date property.
+            </summary>
+            <param name="date">The date extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherDate">The date extracted from the other property.</param>
+            <returns>true if the current date is valid in relation to the other date; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.CompareAttribute">
+            <summary>
+            An abstract validator allowing automated comparison with other properties and localized error messages.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.CompareAttribute.OtherPropertyName">
+            <summary>
+            The name of the property to compare the current property to.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.CompareAttribute.#ctor(System.String,System.ComponentModel.DataAnnotations.DataType)">
+            <summary>
+            Instantiates a new DateCompareAttribute object.
+            </summary>
+            <param name="otherPropertyName">The name of the property to compare the current property to.</param>
+            <param name="dataType">The type of data stored in the two properties.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.CompareAttribute.IsValid(System.Object,System.ComponentModel.DataAnnotations.ValidationContext)">
+            <summary>
+            Validates the specified value with respect to the current validation attribute.
+            </summary>
+            <returns>
+            An instance of the <see cref="T:System.ComponentModel.DataAnnotations.ValidationResult"/> class. 
+            </returns>
+            <param name="value">The value to validate.</param><param name="validationContext">The context information about the validation operation.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.CompareAttribute.FormatErrorMessage(System.String)">
+            <summary>
+            Applies formatting to an error message, based on the data field where the error occurred. 
+            </summary>
+            <returns>
+            An instance of the formatted error message.
+            </returns>
+            <param name="name">The name to include in the formatted message.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.CompareAttribute.IsValid(System.Object,System.Object)">
+            <summary>
+            When overriden in a derived class, validates that the two properties are valid in relation to each other.
+            </summary>
+            <param name="value">The value extracted from the property on which the attribute is assigned to.</param>
+            <param name="otherValue">The value extracted from the other property.</param>
+            <returns>true if the current value is valid in relation to the other value; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.NotLaterThanThisYearAttribute">
+            <summary>
+            A validator attribute that can be set to int properties to validate them as a year and assure they are lower or equal to the current year with automatically localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.NotLaterThanThisYearAttribute.#ctor">
+            <summary>
+            Instantiates a new NotLaterThanThisYearAttribute object with localized messages from the ModelStateMessages resources.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.NotLaterThanThisYearAttribute.IsValid(System.Object)">
+            <summary>
+            Validates that the given year is not later than the current year.
+            </summary>
+            <param name="value">The year to validate.</param>
+            <returns>A value indicating whether the date is valid or not.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.PossibleValues">
+            <summary>
+            Ensures that a property's value or values are in the bounds of possible values.
+            Can be used to decorate string or string[] properties.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.PossibleValues.#ctor(System.Type,System.Boolean,System.Boolean)">
+            <summary>
+            Instantiates a new <see cref="!:DataAnnotations.PossibleValuesAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="valuesEnum">The type of enum specifying the possible values for the decorated property. Must be an enum.</param>
+            <param name="ignoreCase">true to ignore cases when comparing; otherwise false.</param>
+            <param name="allowNull">true to specify null values are valid; otherwise false.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.MaxAttribute">
+            <summary>
+            Wraps the <see cref="T:DataAnnotationsExtensions.MaxAttribute"/> to automatically provide localized messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.MaxAttribute.#ctor(System.Int32)">
+            <summary>
+            Instantiates a new <see cref="T:DataAnnotationsExtensions.MaxAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="min">The maximum value allowed for the property.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.MaxAttribute.#ctor(System.Double)">
+            <summary>
+            Instantiates a new <see cref="T:DataAnnotationsExtensions.MaxAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="min">The maximum value allowed for the property.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.MinAttribute">
+            <summary>
+            Wraps the <see cref="T:DataAnnotationsExtensions.MinAttribute"/> to automatically provide localized messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.MinAttribute.#ctor(System.Int32)">
+            <summary>
+            Instantiates a new <see cref="T:DataAnnotationsExtensions.MinAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="min">The minimum value allowed for the property.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.MinAttribute.#ctor(System.Double)">
+            <summary>
+            Instantiates a new <see cref="T:DataAnnotationsExtensions.MinAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="min">The minimum value allowed for the property.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.PhoneAttribute">
+            <summary>
+            Wraps the <see cref="T:System.ComponentModel.DataAnnotations.PhoneAttribute"/> to automatically provide localized messages.
+            The original <see cref="T:System.ComponentModel.DataAnnotations.PhoneAttribute"/> class is marked as sealed and cannot be inherited.
+            This class wraps it and uses it as its motor.
+            This class allows the phone number to be empty. To require a phone number use the RequireAttribute.
+            </summary>
+        </member>
+        <member name="F:Moviit.ComponentModel.DataAnnotations.PhoneAttribute.phoneAttribute">
+            <summary>
+            The original <see cref="T:System.ComponentModel.DataAnnotations.PhoneAttribute"/> class is marked as sealed and cannot be inherited.
+            This class wraps it and uses this variable as its motor.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.PhoneAttribute.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.PhoneAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.EmailAddressAttribute">
+            <summary>
+            Wraps the <see cref="T:System.ComponentModel.DataAnnotations.EmailAddressAttribute"/> to automatically provide localized messages.
+            The original <see cref="T:System.ComponentModel.DataAnnotations.EmailAddressAttribute"/> class is marked as sealed and cannot be inherited.
+            This class wraps it and uses it as its motor.
+            </summary>
+        </member>
+        <member name="F:Moviit.ComponentModel.DataAnnotations.EmailAddressAttribute.emailAttribute">
+            <summary>
+            The original <see cref="T:System.ComponentModel.DataAnnotations.EmailAddressAttribute"/> class is marked as sealed and cannot be inherited.
+            This class wraps it and uses this variable as its motor.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.EmailAddressAttribute.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.EmailAddressAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.RangeAttribute">
+            <summary>
+            Wraps the <see cref="T:System.ComponentModel.DataAnnotations.RangeAttribute"/> to automatically provide localized messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RangeAttribute.#ctor(System.Int32,System.Int32)">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.RangeAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="min">The minimum value allowed for the property.</param>
+            <param name="max">The maximum value allowed for the property.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RangeAttribute.#ctor(System.Type,System.String,System.String)">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.RangeAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="type">The type of the object to test.</param>
+            <param name="min">The minimum value allowed for the property.</param>
+            <param name="max">The maximum value allowed for the property.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RangeAttribute.#ctor(System.Double,System.Double)">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.RangeAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="min">The minimum value allowed for the property.</param>
+            <param name="max">The maximum value allowed for the property.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.MaxLengthAttribute">
+            <summary>
+            Wraps the <see cref="T:System.ComponentModel.DataAnnotations.MaxLengthAttribute"/> to automatically provide localized messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.MaxLengthAttribute.#ctor(System.Int32)">
+            <summary>
+            Instantiates a new MaxLengthAttribute with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="maxLength">The maximum length allowed for the property.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.After">
+            <summary>
+              Looks up a localized string similar to La fecha indicada para {0} debe ser mayor a {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Before">
+            <summary>
+              Looks up a localized string similar to La fecha indicada para {0} debe ser menor a {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.BeforeThisYear">
+            <summary>
+              Looks up a localized string similar to El año especificado debe ser menor al año actual.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Email">
+            <summary>
+              Looks up a localized string similar to Correo inválido.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.GreaterThan">
+            <summary>
+              Looks up a localized string similar to El valor indicado para {0} debe ser mayor al de {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.GreaterThanOrEqualsTo">
+            <summary>
+              Looks up a localized string similar to El valor indicado para {0} debe ser mayor o igual al de {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.LowerThan">
+            <summary>
+              Looks up a localized string similar to El valor indicado para {0} debe ser menor al de {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.LowerThanOrEqualsTo">
+            <summary>
+              Looks up a localized string similar to El valor indicado para {0} debe ser menor o igual al de {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Max">
+            <summary>
+              Looks up a localized string similar to Campo debe ser menor o igual a {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.MaxLength">
+            <summary>
+              Looks up a localized string similar to Campo debe tener un tamaño máximo de {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Min">
+            <summary>
+              Looks up a localized string similar to Campo debe ser mayor o igual a {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.MinLength">
+            <summary>
+              Looks up a localized string similar to Campo debe tener un tamaño mínimo de {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.NotLaterThanThisYear">
+            <summary>
+              Looks up a localized string similar to El año especificado es mayor al año actual.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.NotLaterThanToday">
+            <summary>
+              Looks up a localized string similar to La fecha especificada no puede ser mayor a la fecha hoy.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Phone">
+            <summary>
+              Looks up a localized string similar to Numero de teléfono inválido.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.PossibleValues">
+            <summary>
+              Looks up a localized string similar to Uno o más de los valores especificados no es válido para esta propiedad.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Range">
+            <summary>
+              Looks up a localized string similar to Campo debe ser entre {1} y {2}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.RegEx">
+            <summary>
+              Looks up a localized string similar to {0} inválido.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Required">
+            <summary>
+              Looks up a localized string similar to Campo requerido.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.Rut">
+            <summary>
+              Looks up a localized string similar to RUT inválido.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.SameOrAfter">
+            <summary>
+              Looks up a localized string similar to La fecha indicada para {0} debe ser mayor o igual a {1}.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.App_LocalResources.ModelStateMessages.SameOrBefore">
+            <summary>
+              Looks up a localized string similar to La fecha indicada para {0} debe ser menor o igual a {1}.
+            </summary>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.MinLengthAttribute">
+            <summary>
+            Wraps the <see cref="T:System.ComponentModel.DataAnnotations.MinLengthAttribute"/> to automatically provide localized messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.MinLengthAttribute.#ctor(System.Int32)">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.MinLengthAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="minLength">The minimum length allowed for the property.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.RegularExpressionAttribute">
+            <summary>
+            Wraps the <see cref="T:System.ComponentModel.DataAnnotations.RegularExpressionAttribute"/> to automatically provide localized messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RegularExpressionAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.RegularExpressionAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="pattern">The regular expression pattern to use for validation.</param>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.RequiredAttribute">
+            <summary>
+            Wraps the <see cref="T:System.ComponentModel.DataAnnotations.RequiredAttribute"/> to automatically provide localized messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RequiredAttribute.#ctor">
+            <summary>
+            Instantiates a new <see cref="T:System.ComponentModel.DataAnnotations.RequiredAttribute"/> with localized messages from the ModelStateMessages resources.
+            </summary>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.NotLaterThanTodayAttribute">
+            <summary>
+            A validator attribute that can be set to DateTime properties to validate them with automatically localized error messages.
+            </summary>
+        </member>
+        <member name="P:Moviit.ComponentModel.DataAnnotations.NotLaterThanTodayAttribute.CompareTime">
+            <summary>
+            Gets or sets the value indicating whether time should be compared along with the date (Default is false).
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.NotLaterThanTodayAttribute.#ctor(System.Boolean)">
+            <summary>
+            Instantiates a new NotLaterThanTodayAttribute object with localized messages from the ModelStateMessages resources.
+            </summary>
+            <param name="compareTime">(Optional) true to compare time along with the date; otherwise false.</param>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.NotLaterThanTodayAttribute.IsValid(System.Object)">
+            <summary>
+            Validates that the given date is not later than today.
+            </summary>
+            <param name="value">The date to validate.</param>
+            <returns>A value indicating whether the date is valid or not.</returns>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.RutAttribute">
+            <summary>
+            A validator attribute that can be set to Rut properties to validate them with automatically localized error messages.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RutAttribute.#ctor">
+            <summary>
+            Instantiates a new RutAttribute object with localized messages from the ModelStateMessages resources.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RutAttribute.IsValid(System.Object)">
+            <summary>
+            Validates that the given rut is formatted correctly and the last digit corresponds to the rut.
+            </summary>
+            <param name="value">The rut string to check.</param>
+            <returns>A value indicating whether the rut is valid or not.</returns>
+            <remarks>Taken from http://cesarg.cl/valida-rut-chileno-con-c webpage and modified.</remarks>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RutAttribute.IsValidFormat(System.String)">
+            <summary>
+            Validates that the format of the RUT is valid.
+            THIS DOES NOT VALIDATE THE LAST DIGIT.
+            </summary>
+            <param name="rut">The RUT to validate.</param>
+            <returns>true if the RUT is well formatted; otherwise false.</returns>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RutAttribute.IsLastDigitValid(System.String)">
+            <summary>
+            Validates that the last digit of the RUT corresponds to the RUT calculation over the big number on the left.
+            </summary>
+            <param name="rut">The complete RUT string to test.</param>
+            <returns>true if the last digit is valid; otherwise false.</returns>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.RutAttribute.CalculateDigit(System.Int32)">
+            <summary>
+            This function takes a rut string and calculates the last digit.
+            </summary>
+            <param name="rut">The rut from which to calculate the digit.</param>
+            <returns>The last sumcheck digit curresponding to the rut.</returns>
+            <remarks>Taken from http://cesarg.cl/valida-rut-chileno-con-c webpage.</remarks>
+        </member>
+        <member name="T:Moviit.ComponentModel.DataAnnotations.ValidationExecutor">
+            <summary>
+            Provides tools for manually running model state validations in cases where it cannot/shouldn't be validated when the request is received.
+            </summary>
+        </member>
+        <member name="M:Moviit.ComponentModel.DataAnnotations.ValidationExecutor.RunValidation(System.Object,System.Collections.Generic.ICollection{System.ComponentModel.DataAnnotations.ValidationResult}@,System.Boolean)">
+            <summary>
+            Runs model state validations on the given model.
+            </summary>
+            <param name="model">The model to validate.</param>
+            <param name="errors">A list of model state errors.</param>
+            <param name="validateAllProperties"><c>true</c> to scan all properties; <c>false</c> to scan only required properties.</param>
+            <returns>true if the model is valid; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.Data.Entity.DbContextExtensions">
+            <summary>
+            Extensions for Db Context.
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.DbContextExtensions.BeginAzureTransaction(System.Data.Entity.DbContext)">
+            <summary>
+            Begins a database transaction suspending the Azure Execution Strategy.
+            </summary>
+            <param name="dbContext">The database context.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Moviit.Data.Entity.Infrastructure.AutoMapperSyncExtensions">
+            <summary>
+            Provides extensions for AutoMapper related with syncing.
+            </summary>
+        </member>
+        <member name="F:Moviit.Data.Entity.Infrastructure.AutoMapperSyncExtensions.IsCreating">
+            <summary>
+            The function used to determine if mapper is creating objects.
+            </summary>
+        </member>
+        <member name="F:Moviit.Data.Entity.Infrastructure.AutoMapperSyncExtensions.IsUpdating">
+            <summary>
+            The functino used to determine if mapper is updating objects.
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.AutoMapperSyncExtensions.IfCreating``3(AutoMapper.IMemberConfigurationExpression{``0,``1,``2})">
+            <summary>
+            Adds a pre-condition to the member mapping configuration which will only map the member if the Sync() method is using automapper to map new items to be created.
+            </summary>
+            <param name="opt">The member configuration expression.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.AutoMapperSyncExtensions.IfUpdating``3(AutoMapper.IMemberConfigurationExpression{``0,``1,``2})">
+            <summary>
+            Adds a pre-condition to the member mapping configuration which will only map the member if the Sync() method is using automapper to update existing items.
+            </summary>
+            <param name="opt">The member configuration expression.</param>
+        </member>
+        <member name="T:Moviit.Data.Entity.Infrastructure.LinqExtensions">
+            <summary>
+            Provides extensions to LINQ infrastructure.
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Include``1(System.Data.Entity.Infrastructure.DbQuery{``0},System.String[])">
+            <summary>
+            Includes all specified navigation properties in the query.
+            </summary>
+            <typeparam name="TResult">The result of the query.</typeparam>
+            <param name="query">The original query to include the properties into.</param>
+            <param name="includes">The names of the properties to include.</param>
+            <returns>The DbQuery with all navigation properties included.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Include``1(System.Linq.IQueryable{``0},System.String[])">
+            <summary>
+            Includes all specified navigation properties in the query.
+            </summary>
+            <typeparam name="TResult">The result of the query.</typeparam>
+            <param name="query">The original query to include the properties into.</param>
+            <param name="includes">The names of the properties to include.</param>
+            <returns>The IQueryable with all navigation properties included.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.WeightedAverage``1(System.Collections.Generic.IEnumerable{``0},System.Func{``0,System.Decimal},System.Func{``0,System.Decimal})">
+            <summary>
+            Calculates the weighted average of a collection. i.e. Sum(value * weight) / Sum(weight)
+            </summary>
+            <typeparam name="T">The type of items in the collection.</typeparam>
+            <param name="items">The collection to calculate the weighted average for.</param>
+            <param name="value">The function used to get the values from the items.</param>
+            <param name="weight">The function used to get the weights from the items.</param>
+            <returns>The weighted average of the collections' items.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.CreateOrUpdate``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]},System.Action{``0,``1,``2})">
+            <summary>
+            Finds all items which are missing in the database and adds them, all the existing items and updates them.
+            </summary>
+            <typeparam name="TEntity">The type of entity used in the dataset.</typeparam>
+            <typeparam name="TModel">The type of complementary model.</typeparam>
+            <typeparam name="TContext">The type of context to pass to mapper.</typeparam>
+            <param name="dataSet">The dataset to manipulate.</param>
+            <param name="newItems">A set of models to compare and complement the existing entities with.</param>
+            <param name="context">Any data needed to be passed to AutoMapper when creating new entities.</param>
+            <param name="keysEqual">A <code>bool keysEquals(TEntity, TModel)</code> method to use when comparing collections.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.CreateOrUpdate``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]},System.Action{``0,``1,``2})">
+            <summary>
+            Finds all items which are missing in the database and adds them, all the existing items and updates them.
+            </summary>
+            <typeparam name="TEntity">The type of entity used in the dataset.</typeparam>
+            <typeparam name="TModel">The type of complementary model.</typeparam>
+            <typeparam name="TContext">The type of context to pass to mapper.</typeparam>
+            <param name="dataSet">The dataset to manipulate.</param>
+            <param name="currentItems">The set of the current items previously fetched from the database.</param>
+            <param name="newItems">A set of models to compare and complement the existing entities with.</param>
+            <param name="keysEqual">A <code>bool keysEquals(TEntity, TModel)</code> method to use when comparing collections.</param>
+            <param name="context">Any data needed to be passed to AutoMapper when creating new entities.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Sync``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]},System.Action{``0,``1,``2},System.Func{``0[],``0[]},System.Action{``0[]})">
+            <summary>
+            Syncs the dataset according to existance of models by adding missing items, removing deleted items and updating existing items.
+            </summary>
+            <typeparam name="TEntity">The type of entity used in the dataset.</typeparam>
+            <typeparam name="TModel">The type of complementary model.</typeparam>
+            <typeparam name="TContext">The type of context to pass to mapper.</typeparam>
+            <param name="dataSet">The dataset to manipulate.</param>
+            <param name="currentItems">The set of the current items previously fetched from the database.</param>
+            <param name="newItems">A set of models to compare and complement the existing entities with.</param>
+            <param name="keysEqual">A <code>bool keysEquals(TEntity, TModel)</code> method to use when comparing collections.</param>
+            <param name="context">Any data needed to be passed to AutoMapper when creating new entities.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+            <param name="deleteFilter">(Optional) A function used to sub filters the items marked for deletion.</param>
+            <param name="delete">(Optional) A function which would delete items marked for deletion.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Sync``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]},System.Action{``0,``1,``2},System.Func{``0[],``0[]},System.Action{``0[]})">
+            <summary>
+            Syncs the dataset according to existance of models by adding missing items, removing deleted items and updating existing items.
+            </summary>
+            <typeparam name="TEntity">The type of entity used in the dataset.</typeparam>
+            <typeparam name="TModel">The type of complementary model.</typeparam>
+            <typeparam name="TContext">The type of context to pass to mapper.</typeparam>
+            <param name="dataSet">The dataset to manipulate.</param>
+            <param name="newItems">A set of models to compare and complement the existing entities with.</param>
+            <param name="keysEqual">A <code>bool keysEquals(TEntity, TModel)</code> method to use when comparing collections.</param>
+            <param name="context">Any data needed to be passed to AutoMapper when creating new entities.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+            <param name="deleteFilter">(Optional) A function used to sub filters the items marked for deletion.</param>
+            <param name="delete">(Optional) A function which would delete items marked for deletion.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.SyncCore``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]},System.Action{``0,``1,``2},System.Func{``0[],``0[]},System.Action{``0[]})">
+            <summary>
+            Syncs the dataset according to existance of models by adding missing items, removing deleted items and updating existing items.
+            </summary>
+            <typeparam name="TEntity">The type of entity used in the dataset.</typeparam>
+            <typeparam name="TModel">The type of complementary model.</typeparam>
+            <typeparam name="TContext">The type of context to pass to mapper.</typeparam>
+            <param name="dataSet">The dataset to manipulate.</param>
+            <param name="entitySource">The old items to compare the new items with.</param>
+            <param name="newItems">A set of models to compare and complement the existing entities with.</param>
+            <param name="keysEqual">A <code>bool keysEquals(TEntity, TModel)</code> method to use when comparing collections.</param>
+            <param name="context">Any data needed to be passed to AutoMapper when creating new entities.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+            <param name="deleteFilter">(Optional) A function used to sub filters the items marked for deletion.</param>
+            <param name="delete">(Optional) A function which would delete items marked for deletion.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Add``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]})">
+            <summary>
+            Finds all new items that don't have entities and creates new entities for them.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <typeparam name="TContext">The type of the context to pass allong to the mapping function.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="currentItems">A collection of an already extracted subset of entities to compare with the new items.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="context">(Optional) An object holding any extra data to pass to the mapping function.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Add``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]})">
+            <summary>
+            Finds all new items that don't have entities and creates new entities for them.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <typeparam name="TContext">The type of the context to pass allong to the mapping function.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="context">(Optional) An object holding any extra data to pass to the mapping function.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.DetectAdded``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean})">
+            <summary>
+            Finds all model items that were added to the collection and are not in the entities.
+            </summary>
+            <typeparam name="TEntity">The type of entity to scan.</typeparam>
+            <typeparam name="TModel">The type of model to scan.</typeparam>
+            <param name="entitySource">The old items to compare the new items with.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <returns>An enumerable object with the subset of models that need to be added as entities.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.AddCore``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Func{``1[],``2,``0[]})">
+            <summary>
+            Finds all new items that don't have entities and creates new entities for them.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <typeparam name="TContext">The type of the context to pass allong to the mapping function.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="entitySource">The old items to compare the new items with.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="context">(Optional) An object holding any extra data to pass to the mapping function.</param>
+            <param name="mapItems">(Optional) A mapping function used to map new items as entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Adding.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Remove``2(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Func{``0[],``0[]},System.Action{``0[]})">
+            <summary>
+            Finds all entities that don't appear in the new items and removes them from the dataset.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="currentItems">A collection of an already extracted subset of entities to compare with the new items.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="deleteFilter">(Optional) A function used to sub filters the items marked for deletion.</param>
+            <param name="delete">(Optional) A function which would delete items marked for deletion.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Remove``2(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Func{``0[],``0[]},System.Action{``0[]})">
+            <summary>
+            Finds all entities that don't appear in the new items and removes them from the dataset.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="deleteFilter">(Optional) A function used to sub filters the items marked for deletion.</param>
+            <param name="delete">(Optional) A function which would delete items marked for deletion.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.DetectRemoved``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean})">
+            <summary>
+            Finds all entity items that don't have a corresponding model in the collection as they were deleted, and must be removed.
+            </summary>
+            <typeparam name="TEntity">The type of entity to scan.</typeparam>
+            <typeparam name="TModel">The type of model to scan.</typeparam>
+            <param name="entitySource">The old items to compare the new items with.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <returns>An enumerable object with the subset of entities that need to be removed from the database.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.RemoveCore``2(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},System.Func{``0[],``0[]},System.Action{``0[]})">
+            <summary>
+            Finds all entities that don't appear in the new items and removes them from the dataset.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="entitySource">The old items to compare the new items with.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="deleteFilter">(Optional) A function used to sub filters the items marked for deletion.</param>
+            <param name="delete">(Optional) A function which would delete items marked for deletion.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Update``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Action{``0,``1,``2})">
+            <summary>
+            Finds all items that exists in source and new items and updates the source's values.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <typeparam name="TContext">The type of the context to pass allong to the mapping function.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="currentItems">A collection of an already extracted subset of entities to compare with the new items.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="context">(Optional) An object holding any extra data to pass to the mapping function.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.Update``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Action{``0,``1,``2})">
+            <summary>
+            Finds all items that exists in source and new items and updates the source's values.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <typeparam name="TContext">The type of the context to pass allong to the mapping function.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="context">(Optional) An object holding any extra data to pass to the mapping function.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.DetectUpdated``2(System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean})">
+            <summary>
+            Finds all entity items also exist in the models collection and must be updated in the database.
+            </summary>
+            <typeparam name="TEntity">The type of entity to scan.</typeparam>
+            <typeparam name="TModel">The type of model to scan.</typeparam>
+            <param name="entitySource">The old items to compare the new items with.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <returns>An enumerable object with the subset of models that were updated and must be also updated in the database.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Infrastructure.LinqExtensions.UpdateCore``3(System.Data.Entity.DbSet{``0},System.Collections.Generic.IEnumerable{``0},System.Collections.Generic.IEnumerable{``1},System.Func{``0,``1,System.Boolean},``2,System.Action{``0,``1,``2})">
+            <summary>
+            Finds all items that exists in source and new items and updates the source's values.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+            <typeparam name="TModel">The type of model being synced.</typeparam>
+            <typeparam name="TContext">The type of the context to pass allong to the mapping function.</typeparam>
+            <param name="dataSet">The original dataset to update.</param>
+            <param name="entitySource">The old items to compare the new items with.</param>
+            <param name="newItems">The new items to compare with the old items.</param>
+            <param name="keysEqual">A function capable of comparing an entity to a model and determine if they are refering to the same object.</param>
+            <param name="context">(Optional) An object holding any extra data to pass to the mapping function.</param>
+            <param name="updateEntity">(Optional) A mapping function used to map new values on to the existing entities. If no function is provided AutoMapper will be used by default, and mapping options items will be filled with "Context" == context and "SyncStatus" == SyncStatus.Updating.</param>
+        </member>
+        <member name="T:Moviit.Data.Entity.Infrastructure.SyncResult`1">
+            <summary>
+            Represents the result of a Sync() call.
+            </summary>
+            <typeparam name="TEntity">The type of entity being synced.</typeparam>
+        </member>
+        <member name="P:Moviit.Data.Entity.Infrastructure.SyncResult`1.Added">
+            <summary>
+            Entities that were added to the dataset during the sync operation.
+            </summary>
+        </member>
+        <member name="P:Moviit.Data.Entity.Infrastructure.SyncResult`1.Removed">
+            <summary>
+            Entities that were removed to the dataset during the sync operation.
+            </summary>
+        </member>
+        <member name="P:Moviit.Data.Entity.Infrastructure.SyncResult`1.Updated">
+            <summary>
+            Entities that were updated to the dataset during the sync operation.
+            </summary>
+        </member>
+        <member name="T:Moviit.Data.Entity.Infrastructure.SyncStatus">
+            <summary>
+            Represents the status in which the <see cref="T:Moviit.Data.Entity.Infrastructure.LinqExtensions"/>'s Sync() methods are in when AutoMapper is called.
+            Can be retrieved in mapping time using the "SyncStatus" mapping option item. 
+            </summary>
+        </member>
+        <member name="F:Moviit.Data.Entity.Infrastructure.SyncStatus.Adding">
+            <summary>
+            The syncer is adding new items that don't exist in the database yet.
+            </summary>
+        </member>
+        <member name="F:Moviit.Data.Entity.Infrastructure.SyncStatus.Updating">
+            <summary>
+            The syncer is updating items that exist in the database and were specified again in the model collection.
+            </summary>
+        </member>
+        <member name="T:Moviit.Data.Entity.Spatial.GeographicCoordinate">
+            <summary>
+            Represent a geographic coordinate
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.Spatial.GeographicCoordinate.#ctor">
+            <summary>
+            Empty constructor 
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.Spatial.GeographicCoordinate.#ctor(System.Double,System.Double)">
+            <summary>
+            Constructor overload to create a object with the given coords
+            </summary>
+            <param name="latitude"></param>
+            <param name="longitude"></param>
+        </member>
+        <member name="P:Moviit.Data.Entity.Spatial.GeographicCoordinate.Latitude">
+            <summary>
+            Latitude of the coordinate
+            </summary>
+        </member>
+        <member name="P:Moviit.Data.Entity.Spatial.GeographicCoordinate.Longitude">
+            <summary>
+            Longitude of the coordinate
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.Spatial.GeographicCoordinate.ToPoint">
+            <summary>
+            Creates a db geography point from the geographic coordinate object
+            </summary>
+            <returns>Db geography point.</returns>
+        </member>
+        <member name="T:Moviit.Data.Entity.Spatial.GeographyHelper">
+            <summary>
+            Provide tools to work with DbGeography type
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.Spatial.GeographyHelper.CreatePoint(System.Double,System.Double)">
+            <summary>
+            Create a db geography point given the corresponding latitude and longitude
+            </summary>
+            <param name="latitude"></param> 
+            <param name="longitude"></param>
+            <returns>Db geography point</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Spatial.GeographyHelper.ToPolygon(System.Collections.Generic.IEnumerable{Moviit.Data.Entity.Spatial.GeographicCoordinate})">
+            <summary>
+            Extension method to create a DbGeography polygon from the given coords
+            </summary>
+            <param name="coordinates"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Spatial.GeographyHelper.ToCoordinates(System.Data.Entity.Spatial.DbGeography)">
+            <summary>
+            Yields all coordinates of a polygon in the form of GeographicCoordinate objects.
+            </summary>
+            <param name="polygon">The polygon to extract the points from.</param>
+            <returns>All coordinates (points) of a polygon in a LatLng structure.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Spatial.GeographyHelper.ToElementsCoordinates(System.Data.Entity.Spatial.DbGeography)">
+            <summary>
+            Yields all coordinates of a polygon in the form of GeographicCoordinate objects.
+            </summary>
+            <param name="polygon">The polygon to extract the points from.</param>
+            <returns>All coordinates (points) of a polygon in a LatLng structure.</returns>
+        </member>
+        <member name="T:Moviit.Data.Entity.Spatial.CoordinateSystemSrid">
+            <summary>
+            Specifies the coordinate system srid that will be used to parse coordinates
+            Read about: http://gis.stackexchange.com/questions/48949/epsg-3857-or-4326-for-googlemaps-openstreetmap-and-leaflet
+            Read more: http://stackoverflow.com/questions/15776161/coordinatesystemid-on-dbgeography
+            </summary>
+        </member>
+        <member name="F:Moviit.Data.Entity.Spatial.CoordinateSystemSrid.GoogleMaps">
+            <summary>
+            Srid for google maps api
+            </summary>
+        </member>
+        <member name="T:Moviit.Data.Entity.Validator`1">
+            <summary>
+            Provides the basic functionallity for business logic validators which have the need to access the database and check for entity/model validity.
+            </summary>
+        </member>
+        <member name="T:Moviit.Data.Entity.Validator`1.ContextResolver">
+            <summary>
+            Points to a method that will be used to return the validation context to add to the error message.
+            </summary>
+            <returns>The validation context to add to the error message.</returns>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.#ctor(`0)">
+            <summary>
+            Instantiates a new validator object.
+            </summary>
+            <param name="db">The DbContext object to use to access the database when validating.</param>
+        </member>
+        <member name="P:Moviit.Data.Entity.Validator`1.Db">
+            <summary>
+            Gets the entities object used to access the database.
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowNotFound(System.String,System.Object[])">
+            <summary>
+            Formats the error message and throws a KeyNotFoundException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowNotFound(System.String,Moviit.Data.Entity.Validator{`0}.ContextResolver,System.Object[])">
+            <summary>
+            Formats the error message and throws a KeyNotFoundException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="resolveContext">
+            (Optional) A function returning a user friendly string representing the context of the validation.
+            Provide a context resolver if you need to specify to the user in which context the error was thrown (e.g. Which element of the array caused the error).
+            </param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowBadArgument(System.String,System.Object[])">
+            <summary>
+            Formats the error message and throws a ArgumentException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowBadArgument(System.String,Moviit.Data.Entity.Validator{`0}.ContextResolver,System.Object[])">
+            <summary>
+            Formats the error message and throws a ArgumentException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="resolveContext">
+            (Optional) A function returning a user friendly string representing the context of the validation.
+            Provide a context resolver if you need to specify to the user in which context the error was thrown (e.g. Which element of the array caused the error).
+            </param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowInvalidOperation(System.String,System.Object[])">
+            <summary>
+            Formats the error message and throws a InvalidOperationException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowInvalidOperation(System.String,Moviit.Data.Entity.Validator{`0}.ContextResolver,System.Object[])">
+            <summary>
+            Formats the error message and throws a InvalidOperationException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="resolveContext">
+            (Optional) A function returning a user friendly string representing the context of the validation.
+            Provide a context resolver if you need to specify to the user in which context the error was thrown (e.g. Which element of the array caused the error).
+            </param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowUnauthorized(System.String,System.Object[])">
+            <summary>
+            Formats the error message and throws a UnauthorizedAccessException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.ThrowUnauthorized(System.String,Moviit.Data.Entity.Validator{`0}.ContextResolver,System.Object[])">
+            <summary>
+            Formats the error message and throws a UnauthorizedAccessException.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="resolveContext">
+            (Optional) A function returning a user friendly string representing the context of the validation.
+            Provide a context resolver if you need to specify to the user in which context the error was thrown (e.g. Which element of the array caused the error).
+            </param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+        </member>
+        <member name="M:Moviit.Data.Entity.Validator`1.FormatErrorMessage(System.String,Moviit.Data.Entity.Validator{`0}.ContextResolver,System.Object[])">
+            <summary>
+            Formats the error message using the arguments and the context resolver.
+            Override to change message format.
+            </summary>
+            <param name="error">The error message format string.</param>
+            <param name="resolveContext">(Optional) A function returning a user friendly string representing the context of the validation.
+            Provide a context resolver if you need to specify to the user in which context the error was thrown (e.g. Which element of the array caused the error).
+            </param>
+            <param name="args">The arguments that will replace the placeholders in the error format string.</param>
+            <returns>An error message formatted using the provided arguments and context.</returns>
+        </member>
+        <member name="T:Moviit.Data.SqlClient.CommonSqlErrors">
+            <summary>
+            Defines common SQL Server error numbers used when catching SqlExceptions.
+            </summary>
+        </member>
+        <member name="F:Moviit.Data.SqlClient.CommonSqlErrors.HasAssociatedData">
+            <summary>
+            The entity has data associated with it on other tables and cannot be deleted or modified.
+            </summary>
+        </member>
+        <member name="T:Moviit.Data.SqlClient.SqlExceptionExtensions">
+            <summary>
+            Provides extension methods to help with Sql exceptions management.
+            </summary>
+        </member>
+        <member name="M:Moviit.Data.SqlClient.SqlExceptionExtensions.IsSqlException(System.Exception)">
+            <summary>
+            Recoursivly checks if the exception or one of its inner exceptions is of type SqlException.
+            </summary>
+            <returns>true if the exception is or has an SqlException; otherwise false.</returns>
+        </member>
+        <member name="M:Moviit.Data.SqlClient.SqlExceptionExtensions.GetSqlErrorNumber(System.Exception)">
+            <summary>
+            Recoursivly finds the SQL error number in the exception or its inner exceptions.
+            </summary>
+            <returns>The SQL error number if available; otherwise <c>int.MinValue</c>.</returns>
+        </member>
+        <member name="M:Moviit.Data.SqlClient.SqlExceptionExtensions.IsHasAssociatedData(System.Exception)">
+            <summary>
+            Checks whether the current exception is the SqlException thrown when manipulation of data is done on a constrained object referencing associated data.
+            </summary>
+            <returns>true if the exception is the SqlException indicating the object has data associated with it; otherwise false.</returns>
+        </member>
+        <member name="T:Moviit.Charts.Google.Extensions">
+            <summary>
+            Provides extensions for google chart objects.
+            </summary>
+        </member>
+        <member name="M:Moviit.Charts.Google.Extensions.ToModel(Moviit.Charts.Google.Native.GoogleChartCell)">
+            <summary>
+            Transforms the native object to its strong typed representation.
+            </summary>
+            <param name="cell">The chart cell to transform.</param>
+            <returns>The strogly typed representation of the native object.</returns>
+        </member>
+        <member name="M:Moviit.Charts.Google.Extensions.ToModel(Moviit.Charts.Google.Native.GoogleChartColumn)">
+            <summary>
+            Transforms the native object to its strong typed representation.
+            </summary>
+            <param name="column">The chart column to transform.</param>
+            <returns>The strogly typed representation of the native object.</returns>
+        </member>
+        <member name="M:Moviit.Charts.Google.Extensions.ToModel(Moviit.Charts.Google.Native.GoogleChartRow)">
+            <summary>
+            Transforms the native object to its strong typed representation.
+            </summary>
+            <param name="row">The chart row to transform.</param>
+            <returns>The strogly typed representation of the native object.</returns>
+        </member>
+        <member name="M:Moviit.Charts.Google.Extensions.ToModel(Moviit.Charts.Google.Native.GoogleChartData)">
+            <summary>
+            Transforms the native object to its strong typed representation.
+            </summary>
+            <param name="data">The chart data to transform.</param>
+            <returns>The strogly typed representation of the native object.</returns>
+        </member>
+        <member name="M:Moviit.Charts.Google.Models.GoogleChartDataModel.PopulateChartDataModel">
+            <summary>
+            When overriden in a derived class, should populate columns and rows with the data corresponding to the object.
+            </summary>
+        </member>
+        <member name="M:Moviit.Charts.Google.Models.GoogleChartDataModel.ToHtml">
+            <summary>
+            Creates an HTML representation of the data in a table so it could be easily exported.
+            </summary>
+            <returns>A string representation of the data in a table.</returns>
+        </member>
+        <member name="M:Moviit.Charts.Google.Models.GoogleChartRowModel.#ctor(System.Object[])">
+            <summary>
+            Instantiates a row with the specified values as cells.
+            </summary>
+            <param name="values">
+            The values to add to the row.
+            GoogleChartCellModel objects will be added as is.
+            Other types of objects will be wraped with a GoogleChartCellModel object.
+            </param>
+        </member>
+        <member name="P:Moviit.Charts.Google.Models.GoogleChartCellModel.AutoFormatValue">
+            <summary>
+            If this is true and the Format property is empty, the Value property will automatically be formatted with:
+            "N0" for integer numbers.
+            "N2" for decimal numbers.
+            "dd/MM/yy" for DateTime values.
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.Models.GoogleChartDataType">
+            <summary>
+            Represents the types of data contained in a column.
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.Models.GoogleChartColumnRole">
+            <summary>
+            Represents the role of the column.
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.Native.GoogleChartData">
+            <summary>
+            The primitive representation of a Google Chart.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartData.cols">
+            <summary>
+            The columns in the data table.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartData.rows">
+            <summary>
+            The rows in the data table.
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.Native.GoogleChartRow">
+            <summary>
+            The primitive representation of a Google Charts row.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartRow.c">
+            <summary>
+            The cells in the row.
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.Native.GoogleChartCell">
+            <summary>
+            The primitive representation of a Google Charts cell.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartCell.v">
+            <summary>
+            The value in the cell.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartCell.f">
+            <summary>
+            A string representation of the value.
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.Native.GoogleChartColumn">
+            <summary>
+            The primitive representation of a Google Charts column.
+            </summary>
+        </member>
+        <member name="M:Moviit.Charts.Google.Native.GoogleChartColumn.Property.#ctor(System.String)">
+            <summary>
+            Instantiates a new property object with the given role;
+            </summary>
+            <param name="role">The role of the column.</param>
+        </member>
+        <member name="M:Moviit.Charts.Google.Native.GoogleChartColumn.Property.#ctor(System.Boolean)">
+            <summary>
+            Instantiates a new property object with the given tooltip HTML value.
+            </summary>
+            <param name="html">true if tooltips contain HTML; otherwise false.</param>
+        </member>
+        <member name="M:Moviit.Charts.Google.Native.GoogleChartColumn.Property.#ctor(System.String,System.Boolean)">
+            <summary>
+            Instantiates a new property object with the given column role and tooltip HTML indication.
+            </summary>
+            <param name="role"></param>
+            <param name="html"></param>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartColumn.Property.role">
+            <summary>
+            The role of the data that will be held in the column.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartColumn.Property.html">
+            <summary>
+            Indicates whether any tooltip column will be read as HTML.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartColumn.id">
+            <summary>
+            (Optional) The id of the column.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartColumn.label">
+            <summary>
+            (Optional) A label for the column.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartColumn.type">
+            <summary>
+            The type of data that will be held in the column.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.Native.GoogleChartColumn.p">
+            <summary>
+            The google property object. Used for roles etc.
+            <see cref="!:https://developers.google.com/chart/interactive/docs/roles#javascript-literal-notation"/>
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.GoogleChartDataResponse">
+            <summary>
+            Represents a response to a chart data request, to parse as JSON.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.GoogleChartDataResponse.SectionName">
+            <summary>
+            Gets or sets the name of the section (e.g. alimentation, eficiencia, etc.) to use in the title.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.GoogleChartDataResponse.ChartName">
+            <summary>
+            Gets or sets the name of the chart (e.g. Comparación PLW) to use in the title.
+            </summary>
+        </member>
+        <member name="P:Moviit.Charts.Google.GoogleChartDataResponse.ExtraData">
+            <summary>
+            Any extra data needed in order to render the chart.
+            </summary>
+        </member>
+        <member name="M:Moviit.Charts.Google.GoogleChartDataResponse.#ctor">
+            <summary>
+            Instantiates a new GCDR object.
+            </summary>
+        </member>
+        <member name="M:Moviit.Charts.Google.GoogleChartDataResponse.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new GCDR object and prepares its title property.
+            </summary>
+            <param name="sectionName">The name of the section to use in the title.</param>
+            <param name="chartName">The name of the chart to use in the title.</param>
+        </member>
+        <member name="M:Moviit.Charts.Google.GoogleChartDataResponse.BuildTitle">
+            <summary>
+            When overriden in a derived class, should build and return the chart's title.
+            </summary>
+        </member>
+        <member name="M:Moviit.Charts.Google.GoogleChartDataResponse.PopulateExtraData">
+            <summary>
+            When overriden in a derived class, should populate the ExtraData property if extra data is needed to render the chart.
+            </summary>
+        </member>
+        <member name="T:Moviit.Charts.Google.IGoogleChartDataWrapper`1">
+            <summary>
+            Defines the structure that must be implemented on a wrapper class for a google chart element (row, column, cell, etc.).
+            </summary>
+            <typeparam name="TWrapped">The primitive Google Chart element type wrapped in order to strong-type it.</typeparam>
+        </member>
+        <member name="M:Moviit.Charts.Google.IGoogleChartDataWrapper`1.ToNative">
+            <summary>
+            When implemented on the element wrapper class, should return the data in a primitive (Google-Charts-ready) form.
+            </summary>
+            <returns>A Google-Charts-ready representation of the element's data.</returns>
+        </member>
+        <member name="T:Moviit.Configuration.ConfigurationManager">
+            <summary>
+            Provides tools for loaded global (solution-wide) settings.
+            </summary>
+        </member>
+        <member name="F:Moviit.Configuration.ConfigurationManager.Settings">
+            <summary>
+            Used as a singlton source for previously loaded app settings.
+            </summary>
+        </member>
+        <member name="M:Moviit.Configuration.ConfigurationManager.LoadGlobalAppSettings(System.String,System.Boolean)">
+            <summary>
+            Loads a global app.settings file from the specified path.
+            </summary>
+            <param name="path">The path to the app.settings file.</param>
+            <param name="reload">(Optional) true to reload the file if it was already previously loaded; false to use the already loaded version.</param>
+            <returns>The settings section contained by the file if the file exists; otherwise null.</returns>
+        </member>
+        <member name="M:Moviit.Configuration.ConfigurationManager.GetValue(System.String)">
+            <summary>
+            Gets the settings value for the given key.
+            If the <code>LoadGlobalAppSettings</code> method was never called before, the method will return null.
+            </summary>
+            <param name="key">The settings key to look for.</param>
+            <returns>The value for the given settings key, or null if not found.</returns>
+        </member>
+        <member name="T:Moviit.DateExtensions">
+            <summary>
+            Extensions methods for DateTime Type.
+            </summary>
+        </member>
+        <member name="M:Moviit.DateExtensions.IsAfter(System.DateTime,System.DateTime)">
+            <summary>
+            Check if the value of this DateTime instance is after than the compared date.
+            </summary>
+            <param name="value">The Current instance.</param>
+            <param name="comparedDate">The date to compare to check with.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Moviit.DateExtensions.IsBefore(System.DateTime,System.DateTime)">
+            <summary>
+            Check if the value of this DateTime instance is before than the compared date.
+            </summary>
+            <param name="value">The Current instance.</param>
+            <param name="comparedDate">The date to compare to check with.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Moviit.DateExtensions.IsSame(System.DateTime,System.DateTime)">
+            <summary>
+            Check if the value of this DateTime instance is the same than the compared date.
+            </summary>
+            <param name="value">The Current instance.</param>
+            <param name="comparedDate">The date to compare to check with.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Moviit.DateExtensions.IsSameOrBefore(System.DateTime,System.DateTime)">
+            <summary>
+            Check if the value of this DateTime instance is the same or is before than the compared date.
+            </summary>
+            <param name="value">The Current instance.</param>
+            <param name="comparedDate">The date to compare to check with.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Moviit.DateExtensions.IsSameOrAfter(System.DateTime,System.DateTime)">
+            <summary>
+            Check if the value of this DateTime instance is the same or is after than the compared date.
+            </summary>
+            <param name="value">The Current instance.</param>
+            <param name="comparedDate">The date to compare to check with.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Moviit.DateExtensions.EachDay(System.DateTime,System.DateTime)">
+            <summary>
+            Iterate for each day in a dates range.
+            </summary>
+            <param name="from">The begin of the range.</param>
+            <param name="thru">The end of the range.</param>
+            <returns>Each day in the range.</returns>
+        </member>
+        <member name="T:Moviit.Drawing.ColorExtensions">
+            <summary>
+            Provides extension methods for dealing with colors in a strogly-typed fashion.
+            </summary>
+        </member>
+        <member name="M:Moviit.Drawing.ColorExtensions.ToColor(System.String)">
+            <summary>
+            Converts a hex (e.g. '#f21fja') color string to a Color object.
+            </summary>
+            <param name="hexColor">The hex value of the color.</param>
+            <returns>The Color object representing the specified color.</returns>
+        </member>
+        <member name="M:Moviit.Drawing.ColorExtensions.ToColoeHex(System.Drawing.Color)">
+            <summary>
+            Converts a Color object to its corresponding hex string (e.g. '#f139ea').
+            </summary>
+            <param name="color">The color to convert.</param>
+            <returns>The hex value representing the color. Includes the "#" sign for faster work when sending data to a client.</returns>
+        </member>
+        <member name="T:Moviit.IO.Export.IExcelExportable">
+            <summary>
+            Provides tools for objects which are exportable as excel.
+            </summary>
+        </member>
+        <member name="M:Moviit.IO.Export.IExcelExportable.ToHtml">
+            <summary>
+            When implemented, converts the object's data to an html string which can be exported.
+            </summary>
+            <returns>An html string containing the data to export.</returns>
+        </member>
+        <member name="T:Moviit.IO.ImageReader">
+            <summary>
+            Provides tools to read image files.
+            </summary>
+        </member>
+        <member name="M:Moviit.IO.ImageReader.ReadDataUri(System.String)">
+            <summary>
+            Reads an image file and returns its data as data URI ready to use in applications.
+            </summary>
+            <param name="relativePath">The relative path to the file. Application path is automatically combined.</param>
+            <returns>A data URI containing the base 64 representation of the image.</returns>
+        </member>
+        <member name="M:Moviit.IO.ImageReader.ReadDataUriAsync(System.String)">
+            <summary>
+            Reads an image file and returns its data as data URI ready to use in applications.
+            </summary>
+            <param name="relativePath">The relative path to the file. Application path is automatically combined.</param>
+            <returns>A data URI containing the base 64 representation of the image.</returns>
+        </member>
+        <member name="T:Moviit.IO.Import.App_LocalResources.Errors">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Moviit.IO.Import.App_LocalResources.Errors.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Moviit.IO.Import.App_LocalResources.Errors.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Moviit.IO.Import.App_LocalResources.Errors.InvalidFile">
+            <summary>
+              Looks up a localized string similar to El archivo especificado no existe.
+            </summary>
+        </member>
+        <member name="P:Moviit.IO.Import.App_LocalResources.Errors.InvalidWorkSheet">
+            <summary>
+              Looks up a localized string similar to Hoja de excel no corresponde con el formato.
+            </summary>
+        </member>
+        <member name="P:Moviit.IO.Import.App_LocalResources.Errors.MissingWorksheetConfig">
+            <summary>
+              Looks up a localized string similar to No se ha especificado configuración para importar este archivo.
+            </summary>
+        </member>
+        <member name="T:Moviit.IO.Import.ExcelFile">
+            <summary>
+            Represents an excel file and provides tools for mapping its data into strongly-typed objects.
+            </summary>
+        </member>
+        <member name="M:Moviit.IO.Import.ExcelFile.#ctor(System.String,System.Collections.Generic.Dictionary{System.String,System.Object})">
+            <summary>
+            Instantiates a new ExcelFile object.
+            </summary>
+            <param name="fileName">The path to the excel file to read.</param>
+            <param name="nonMappedProperties">A collecction with no mapped excel colummns.</param>
+            <exception cref="T:System.IO.FileNotFoundException">The specified file does not exist.</exception>
+        </member>
+        <member name="M:Moviit.IO.Import.ExcelFile.Read``1(System.String,System.Collections.Generic.List{Moviit.IO.Import.RowImportError}@,System.Int32)">
+            <summary>
+            Reads the specified data sheet and maps each row to a model of the given type.
+            Model validation is also performed and rows are rejected if they don't pass validation.
+            </summary>
+            <typeparam name="TModel">The type of the parsed model. Properties which should be read from the file must be decorated with the MapColumnAttribute</typeparam>
+            <param name="worksheetName">The name of the worksheet to read.</param>
+            <param name="errors">A list with rejected rows and the errors causing rejection.</param>
+            <param name="skippedRows">The number of rows to skip from the beginning.</param>
+            <returns>A list of objects mapped from the excel sheet.</returns>
+        </member>
+        <member name="M:Moviit.IO.Import.ExcelFile.MapObjects``1(System.String,OfficeOpenXml.ExcelRange,System.Collections.Generic.IDictionary{System.Int32,System.Reflection.PropertyInfo},System.Collections.Generic.List{Moviit.IO.Import.RowImportError}@,System.Int32)">
+            <summary>
+            Does the actual mapping of excel cells to object properties.
+            </summary>
+            <typeparam name="TModel">The type of the parsed model. Properties which should be read from the file must be decorated with the MapColumnAttribute</typeparam>
+            <param name="worksheetName">The name of the worksheet to read.</param>
+            <param name="cells">The range of cells containing data.</param>
+            <param name="propertyMapping">A dictionary used to map column index with a model's property.</param>
+            <param name="errors">A list of rejected rows and the errors causing rejections.</param>
+            <param name="skippedRows">The number of rows to skip from the beginning.</param>
+            <returns>A list of objects mapped from the excel sheet.</returns>
+        </member>
+        <member name="M:Moviit.IO.Import.ExcelFile.GetValueGeneric(OfficeOpenXml.ExcelRange,System.Type)">
+            <summary>
+            Invokes the generic PropertyInfo.GetValue() method dynamically in order to read and parse a cell's value to the correct type.
+            </summary>
+            <param name="cell">The cell from which to read the value.</param>
+            <param name="valueType">The type of value to read (the type of the property in the model).</param>
+            <returns>The read value, parsed as the given type.</returns>
+        </member>
+        <member name="M:Moviit.IO.Import.ExcelFile.CreatePropertyMapping``1">
+            <summary>
+            Goes through the given generic type and maps all properties decorated with MapColumnAttribute.
+            </summary>
+            <typeparam name="TModel">The type of the parsed model. Properties which should be read from the file must be decorated with the MapColumnAttribute</typeparam>
+            <returns>A dictionary whose keys are the column indexes and values are the PropertyInfo objects of the model.</returns>
+        </member>
+        <member name="M:Moviit.IO.Import.ExcelFile.ValidateModel``1(System.String,System.Int32,``0,System.Collections.Generic.List{Moviit.IO.Import.RowImportError})">
+            <summary>
+            Fires validation on a model, transforms any errors to RowImportError and adds them to the specified errors list.
+            </summary>
+            <typeparam name="TModel">The type of the parsed model. Properties which should be read from the file must be decorated with the MapColumnAttribute</typeparam>
+            <param name="worksheetName">The name of the worksheet being read.</param>
+            <param name="row">The row the model has been mapped from.</param>
+            <param name="model">The model mapped from the file.</param>
+            <param name="errors">The list of errors to which any validation errors should be added.</param>
+            <returns><c>true</c> if the model is valid; Otherwise <c>false</c>.</returns>
+        </member>
+        <member name="T:Moviit.IO.Import.MapColumnAttribute">
+            <summary>
+            Defines mapping for model properties to column index.
+            </summary>
+        </member>
+        <member name="M:Moviit.IO.Import.MapColumnAttribute.#ctor(System.Int32)">
+            <summary>
+            Instantiates a new MapColumnAttribute object.
+            </summary>
+            <param name="columnIndex">The index of the column the decorated model propety should be mapped to.</param>
+        </member>
+        <member name="T:Moviit.IO.Import.RowImportError">
+            <summary>
+            Represents an error occured while trying to import a row from a file and map it to an object.
+            </summary>
+        </member>
+        <member name="M:Moviit.IO.Import.RowImportError.#ctor">
+            <summary>
+            Instantiates a new RowImportError object.
+            </summary>
+        </member>
+        <member name="M:Moviit.IO.Import.RowImportError.#ctor(System.String,System.Int32,System.String)">
+            <summary>
+            Instantiates a new RowImportError object.
+            </summary>
+            <param name="worksheetName">The name of the worksheet in which the error occured.</param>
+            <param name="rowIndex">The index of the row at which the error occured.</param>
+            <param name="message">The message explaining why the row couldn't have been mapped.</param>
+        </member>
+        <member name="P:Moviit.IO.Import.RowImportError.WorkSheetName">
+            <summary>
+            Gets or sets the name of the worksheet which had error.
+            </summary>
+        </member>
+        <member name="P:Moviit.IO.Import.RowImportError.RowIndex">
+            <summary>
+            Gets or sets the index of the row at which the error occured.
+            </summary>
+        </member>
+        <member name="P:Moviit.IO.Import.RowImportError.Message">
+            <summary>
+            Gets or sets the message explaining why the row couldn't have been mapped.
+            </summary>
+        </member>
+        <member name="T:Moviit.Reflection.PropertiesExtensions">
+            <summary>
+            Provides reflection extensions for property info objects.
+            </summary>
+        </member>
+        <member name="M:Moviit.Reflection.PropertiesExtensions.GetDisplayName(System.Reflection.PropertyInfo,System.Boolean)">
+            <summary>
+            Gets the localized display name assigned to a model property.
+            The method looks for a DisplayAttribute then for a DisplayNameAttribute and if neither was found returns the original property name.
+            </summary>
+            <param name="property">The property info from which the display name should be fetched.</param>
+            <param name="inherit">true to look in ancestors; otherwise false.</param>
+            <returns>The localized display name assigned to the property, or the original name of the property if not assigned.</returns>
+        </member>
+        <member name="T:Moviit.Reporting.ReportExtensions">
+            <summary>
+            Provides extensions for report objects.
+            </summary>
+        </member>
+        <member name="M:Moviit.Reporting.ReportExtensions.Add(System.Collections.Generic.ICollection{Microsoft.Reporting.WebForms.ReportDataSource},System.String,System.Object)">
+            <summary>
+            Adds a new ReportDataSource object to the sources list.
+            </summary>
+            <param name="sources">The list of sources to add the value to.</param>
+            <param name="name">The name of the source to add.</param>
+            <param name="value">The value of the source to add.</param>
+        </member>
+        <member name="M:Moviit.Reporting.ReportExtensions.Add(System.Collections.Generic.ICollection{Microsoft.Reporting.WebForms.ReportParameter},System.String,System.String)">
+            <summary>
+            Adds a new ReportParameter object to the parameters list.
+            </summary>
+            <param name="parameters">The list of parameters to add the value to.</param>
+            <param name="name">The name of the parameter to add.</param>
+            <param name="value">The value of the parameter to add.</param>
+        </member>
+        <member name="T:Moviit.Reporting.BaseReport">
+            <summary>
+            Provides basic functionallity for making exportable PDF reports.
+            </summary>
+        </member>
+        <member name="M:Moviit.Reporting.BaseReport.#ctor(System.String)">
+            <summary>
+            Instantiates a new BaseReport object.
+            </summary>
+            <param name="path">The relative path to the report file from the server path.</param>
+        </member>
+        <member name="M:Moviit.Reporting.BaseReport.Fill(System.Collections.Generic.List{Microsoft.Reporting.WebForms.ReportDataSource},System.Collections.Generic.List{Microsoft.Reporting.WebForms.ReportParameter})">
+            <summary>
+            When overriden in a derived class, fills the report data sources and/or report parameters with data.
+            </summary>
+        </member>
+        <member name="M:Moviit.Reporting.BaseReport.CreatePdf">
+            <summary>
+            Renders the report and transforms it to a byte array ready to be exported as PDF.
+            </summary>
+            <returns>A byte array ready to be exported as PDF.</returns>
+        </member>
+        <member name="T:Moviit.Reporting.IPdfBuilder">
+            <summary>
+            Provides a definition for objects which are pdf exportable.
+            </summary>
+        </member>
+        <member name="M:Moviit.Reporting.IPdfBuilder.CreatePdf">
+            <summary>
+            Creates the content of the object as an exportable PDF data byte array.
+            </summary>
+            <returns>An exportable PDF data byte array containing the object data.</returns>
+        </member>
+        <member name="T:Moviit.Json.JsonExtensions">
+            <summary>
+            Provides extension methods to different classes making life easier when working with JSONs.
+            </summary>
+        </member>
+        <member name="M:Moviit.Json.JsonExtensions.JsonRaw(System.Web.Mvc.HtmlHelper{System.Object},System.Object)">
+            <summary>
+            Encodes an object to JSON and prepares it for passing to Javascript.
+            </summary>
+            <param name="html">The HtmlHelper object to work with.</param>
+            <param name="data">The object to encode to JSON.</param>
+            <returns>The JSON representation of the object ready for passing to Javascript.</returns>
+        </member>
+        <member name="T:Moviit.Json.JsonFile">
+            <summary>
+            Provides tools for dealing with .json files.
+            </summary>
+        </member>
+        <member name="M:Moviit.Json.JsonFile.ReadObject``1(System.String)">
+            <summary>
+            Reads a .json file and converts it to an object.
+            </summary>
+            <param name="path">The path to the .json file.</param>
+            <returns>An object containing the JSON representation in the file.</returns>
+        </member>
+        <member name="M:Moviit.Json.JsonFile.ReadObject(System.String)">
+            <summary>
+            Reads a .json file and converts it to an object.
+            </summary>
+            <param name="path">The path to the .json file.</param>
+            <returns>An object containing the JSON representation in the file.</returns>
+        </member>
+        <member name="T:Moviit.IEnumerableExtensions">
+            <summary>
+            Extensions methods for IEnumerable types.
+            </summary>
+        </member>
+        <member name="M:Moviit.IEnumerableExtensions.ForEachAsync``1(System.Collections.Generic.List{``0},System.Func{``0,System.Threading.Tasks.Task})">
+            <summary>
+            Async method for ForEach.
+            </summary>
+            <typeparam name="T"></typeparam>
+            <param name="list"></param>
+            <param name="func"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Moviit.IEnumerableExtensions.AddRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Adds the given elements to the collection.
+            </summary>
+            <typeparam name="T">The type of items stored in the collection.</typeparam>
+            <param name="collection">The collection to add the items to.</param>
+            <param name="items">The items to addd to the collection.</param>
+        </member>
+        <member name="M:Moviit.IEnumerableExtensions.RemoveRange``1(System.Collections.Generic.ICollection{``0},System.Collections.Generic.IEnumerable{``0})">
+            <summary>
+            Removes all items from the collection.
+            </summary>
+            <typeparam name="T">The type of items stored in the collection.</typeparam>
+            <param name="collection">The collection to remove the items from.</param>
+            <param name="items">The items to remove from the collection.</param>
+        </member>
+        <member name="T:Moviit.Localization.ClientLocales">
+            <summary>
+            Provides tools for dealing with client-side localization.
+            These tools complement the angular-moviit library and the gulp scripts which create and handle locales files.
+            </summary>
+        </member>
+        <member name="F:Moviit.Localization.ClientLocales.Config">
+            <summary>
+            The configurations specified in the locales.json file.
+            </summary>
+        </member>
+        <member name="M:Moviit.Localization.ClientLocales.GetSupportedLocalesAsync">
+            <summary>
+            Gets a dictionary of culture names and their details supported by the system.
+            The system is expected to have a locales.json configuration file in the root folder.
+            The structure of the file should match the <see cref="T:Moviit.Localization.LocalesConfig">LocalesConfig</see> structure.
+            </summary>
+            <returns>A string array containing the locales supported by the system.</returns>
+        </member>
+        <member name="M:Moviit.Localization.ClientLocales.GetTranslation(System.String)">
+            <summary>
+            Gets a specific translation file as a JObject object.
+            </summary>
+            <param name="locale">The locale to look for (e.g. "es-cl").</param>
+            <returns>A JObject representation of the translation JSON object.</returns>
+        </member>
+        <member name="M:Moviit.Localization.ClientLocales.ReadConfiguration">
+            <summary>
+            Reads the locales configuration file.
+            </summary>
+            <returns>The configuration defined for locales.</returns>
+        </member>
+        <member name="T:Moviit.Localization.CultureHelper">
+            <summary>
+            Provides tools for localization and culture change on server side.
+            </summary>
+        </member>
+        <member name="M:Moviit.Localization.CultureHelper.ChangeCulture(System.String)">
+            <summary>
+            The purpose of this method is to change the UI culture for the current user of the application.
+            This is done by creating a new Culture info object from the specified culture and then asigning it
+            to the Current Thread's Current culture and a new CultureInfo object to the CurrentUICulture.
+            </summary>
+            <param name="selectedCulture">The desired culture string representation</param>
+        </member>
+        <member name="P:Moviit.Localization.CultureHelper.CurrentCultureCode">
+            <summary>
+            Gets the current two letter iso culture being used by the application thread.
+            </summary>
+            <returns>Returns the current two letter iso culture being used by the application thread.</returns>
+        </member>
+        <member name="P:Moviit.Localization.CultureHelper.CurrentCulture">
+            <summary>
+            Gets the culture info object being used by the application thread.
+            </summary>
+            <returns>Returns the culture info object being used by the application thread.</returns>
+        </member>
+        <member name="M:Moviit.Localization.CultureHelper.SetCulture(System.Web.HttpRequest,System.Web.HttpResponse)">
+            <summary>
+            Changes the user culture based on the request.
+            If the culture on the 'lang' cookie is different from the current culture, then the culture is changed
+            to the one on the cookie, otherwise it's set to Spanish by default.
+            </summary>
+            <param name="request">The request made by the user.</param>
+            <param name="response">The response which is about to be sent to the user.</param>
+        </member>
+        <member name="M:Moviit.Localization.CultureHelper.Register(System.Web.HttpApplication)">
+            <summary>
+            Registers an event handler for the BeginRequest event of the application which automatically checks
+            the current culture and replaces it if another culture is specified.
+            This would made the system automatically look for the right resource file.
+            This method should be called from the overriden Init() method of the HttpApplication.
+            </summary>
+            <param name="app">The application which needs localization support.</param>
+            <remarks>The application should have its own resouce files.</remarks>
+        </member>
+        <member name="T:Moviit.Localization.LocalesConfig">
+            <summary>
+            Used for providing the client with a list of supported locales.
+            This strong types the data read from the .json file holding the supported locales.
+            </summary>
+        </member>
+        <member name="P:Moviit.Localization.LocalesConfig.localesPath">
+            <summary>
+            Gets or sets the location of the translation files compiled by gulp.
+            </summary>
+        </member>
+        <member name="P:Moviit.Localization.LocalesConfig.appName">
+            <summary>
+            Gets or sets the prefix of the translation files (will result in {appName}.{locale}.min.json.
+            e.g. app.es-cl.min.json
+            </summary>
+        </member>
+        <member name="P:Moviit.Localization.LocalesConfig.supportedLocales">
+            <summary>
+            Gets or sets the locales supported by the system.
+            </summary>
+        </member>
+        <member name="M:Moviit.Localization.LocalesConfig.LocalePath(System.String)">
+            <summary>
+            Creates a server path for a specific locale file.
+            </summary>
+            <param name="locale">The locale for which to create the path (e.g. "es-cl").</param>
+            <returns>A file-system formatted path to the locale file.</returns>
+        </member>
+        <member name="T:Moviit.Localization.SupportedLocale">
+            <summary>
+            Represents a supported locale properties object facilitating language change and
+            UI representation of supported cultures.
+            The supportedLocales property defined by locales.json should match this structure for each locale.
+            The corresponding culture name is loaded as the key of the dictionary which holds this object.
+            </summary>
+        </member>
+        <member name="P:Moviit.Localization.SupportedLocale.language">
+            <summary>
+            Gets or sets the language name to display in the UI (e.g. "Spanish").
+            </summary>
+        </member>
+        <member name="P:Moviit.Localization.SupportedLocale.languageCode">
+            <summary>
+            Gets or sets the language code to use in angular-translate, or any other library that might come up.
+            </summary>
+        </member>
+        <member name="P:Moviit.Localization.SupportedLocale.country">
+            <summary>
+            Gets or sets the country name to display in the UI (e.g. "Chile").
+            </summary>
+        </member>
+        <member name="P:Moviit.Localization.SupportedLocale.countryCode">
+            <summary>
+            Gets or sets the country code to use in the UI (e.g. "cl").
+            Can be used along with glyphs to show flag icons.
+            </summary>
+        </member>
+        <member name="T:Moviit.MvcTemplates.RemarkBundleConfig">
+            <summary>
+            Provides tools for registering the Remark template's bundles.
+            </summary>
+        </member>
+        <member name="M:Moviit.MvcTemplates.RemarkBundleConfig.RegisterBundles(System.Web.Optimization.BundleCollection,System.String)">
+            <summary>
+            Registers the Remark template's styles and code bundles.
+            </summary>
+            <param name="bundles">The bundles collection to plug-in to.</param>
+            <param name="remarkPath">The base path of the remark folder in the project.</param>
+        </member>
+        <member name="T:Moviit.Net.Mailer">
+            <summary>
+            Used to send templated system mails. 
+            </summary>
+        </member>
+        <member name="M:Moviit.Net.Mailer.#ctor">
+            <summary>
+            Instantiates a new EmailSender object using the settings defined in the web.config file under system.net/mailSettings/smtp.
+            </summary>
+        </member>
+        <member name="M:Moviit.Net.Mailer.#ctor(System.String,System.Int32,System.Boolean,System.Net.Mail.SmtpDeliveryMethod,System.String,System.String,System.String)">
+            <summary>
+            Instantiates a new EmailSender using the specified conneciton settings.
+            </summary>
+            <param name="host">The ip or hostname of the SMTP server used to send the emails.</param>
+            <param name="port">The port to use sending emails.</param>
+            <param name="enableSsl">true to enable SSL connection with the server; otherwise false.</param>
+            <param name="deliveryMethod">The method of mail delivery.</param>
+            <param name="username">The username used to access the SMTP server.</param>
+            <param name="password">The password used to access the SMTP server.</param>
+            <param name="sender">The email address of the sender.</param>
+        </member>
+        <member name="M:Moviit.Net.Mailer.Finalize">
+            <summary>
+            Finalizes the EmailSender object.
+            </summary>
+        </member>
+        <member name="M:Moviit.Net.Mailer.Dispose">
+            <summary>
+            Disposes of all managed and unmanaged resources used by the object.
+            </summary>
+        </member>
+        <member name="M:Moviit.Net.Mailer.Dispose(System.Boolean)">
+            <summary>
+            Disposed of all managed and potentially unmanaged resources used by the object.
+            </summary>
+            <param name="disposing">true to dispose managed resources; Otherwise false.</param>
+        </member>
+        <member name="M:Moviit.Net.Mailer.SendAsync(Moviit.Net.EmailTemplate,System.String)">
+            <summary>
+            Sends the templated mail to the specified address. 
+            </summary>
+            <param name="template">The email template to send.</param>
+            <param name="to">The destination of the mail.</param>
+        </member>
+        <member name="T:Moviit.Net.EmailTemplate">
+            <summary>
+            Wraps the MailDefinition class to facilitate its use and allow template inheritance.
+            </summary>
+        </member>
+        <member name="M:Moviit.Net.EmailTemplate.#ctor(System.String,System.String,System.String,System.Net.Mail.MailPriority)">
+            <summary>
+            Instantiates a new EmailTemplate object.
+            </summary>
+            <param name="path">The relative path to the template file.</param>
+            <param name="subject">The subject to send with the mail.</param>
+            <param name="from">The mail of the sender.</param>
+            <param name="priority">(Optional) The priority of the mail.</param>
+        </member>
+        <member name="M:Moviit.Net.EmailTemplate.#ctor(System.String,System.String,System.String)">
+            <summary>
+            Instantiates a new EmailTemplate object.
+            </summary>
+            <param name="path">The relative path to the template file.</param>
+            <param name="subject">The subject to send with the mail.</param>
+            <param name="from">The mail of the sender.</param>
+        </member>
+        <member name="M:Moviit.Net.EmailTemplate.#ctor(System.String,System.String,System.Net.Mail.MailPriority)">
+            <summary>
+            Instantiates a new EmailTemplate object.
+            </summary>
+            <param name="path">The relative path to the template file.</param>
+            <param name="subject">The subject to send with the mail.</param>
+            <param name="priority">(Optional) The priority of the mail.</param>
+        </member>
+        <member name="M:Moviit.Net.EmailTemplate.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new EmailTemplate object.
+            </summary>
+            <param name="path">The relative path to the template file.</param>
+            <param name="subject">The subject to send with the mail.</param>
+        </member>
+        <member name="M:Moviit.Net.EmailTemplate.CreateMail(System.String)">
+            <summary>
+            Creates a mail from the template and replaces params in the body.
+            </summary>
+            <param name="to">The destination email to send the mail to.</param>
+            <returns>A mail message object to send using an SmtpClient object.</returns>
+        </member>
+        <member name="M:Moviit.Net.EmailTemplate.FillValues(System.Collections.IDictionary)">
+            <summary>
+            When overriden in a derived class, adds email content placeholders and their values.
+            </summary>
+            <param name="values">The dictionary to add content placeholders and values to.</param>
+        </member>
+        <member name="M:Moviit.Net.EmailTemplate.FillInlineImages(System.Collections.IDictionary)">
+            <summary>
+            When overriden in a derived class, defined the inline images to attach to the mail.
+            The keys in the dictionary should be the keys in the template (e.g. if you placed <example>&lt;img src="{logo}"/&gt;</example> your key will be "logo").
+            The values in the dictionary should be the relative paths to the images to attach.
+            </summary>
+            <param name="images">The dictionary of image ids and relative paths to the images to fill.</param>
+        </member>
+        <member name="T:Moviit.Security.Claims.ClaimsPrincipalExtensions">
+            <summary>
+            Provides extensions to ClaimsPrincipal objects.
+            </summary>
+        </member>
+        <member name="M:Moviit.Security.Claims.ClaimsPrincipalExtensions.GetUserId(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Gets the value of the 'sub' claim which holds the id of the user in session.
+            </summary>
+            <param name="user">The user for which to retrieve the id.</param>
+            <returns>The id of the user.</returns>
+        </member>
+        <member name="M:Moviit.Security.Claims.ClaimsPrincipalExtensions.GetRoles(System.Security.Claims.ClaimsPrincipal)">
+            <summary>
+            Gets all the values of the 'role' claims of the user.
+            </summary>
+            <param name="user">The user for which to retrieve the roles.</param>
+            <returns>The roles of the user.</returns>
+        </member>
+        <member name="T:Moviit.Server.Common">
+            <summary>
+            Provides commonly used data and methods.
+            </summary>
+        </member>
+        <member name="F:Moviit.Server.Common.ServerPath">
+            <summary>
+            The path to the server (Mapped by HttpRuntime.AppDomainAppPath).
+            </summary>
+        </member>
+        <member name="M:Moviit.Server.Common.CreateServerPath(System.String[])">
+            <summary>
+            Creates a complete path for an object, given the relative path strings, in file-system format.
+            </summary>
+            <param name="pathParts">The relative paths to which server path will be added (Can be Url formatted or file-system formatted).</param>
+            <returns>A complete path to the object, in file-system format.</returns>
+        </member>
+        <member name="M:Moviit.Server.Common.StripServerPath(System.String)">
+            <summary>
+            Strips a full path to a file on the server from the server path itself, returning only the relative path to the file.
+            If the path doesn't start with the server path, the path will be returned as is.
+            </summary>
+            <param name="fullPath">The full path to the file.</param>
+            <returns>A relative path to the file rooting at the server's path.</returns>
+        </member>
+        <member name="M:Moviit.Server.Common.AddServerPath(System.String)">
+            <summary>
+            Creates a fullpath to a file on the server using the given string as the relative path.
+            </summary>
+            <param name="relativePath">The relative path to the file.</param>
+            <returns>The fullpath to the file.</returns>
+        </member>
+        <member name="T:Moviit.Mvc.Extensions.ControllerExtensions">
+            <summary>
+            Provides extensions for MVC controllers.
+            </summary>
+        </member>
+        <member name="M:Moviit.Mvc.Extensions.ControllerExtensions.JsonObject(System.Web.Mvc.Controller,System.String)">
+            <summary>
+            Creates a response from JSON strings and to return them as object in the response.
+            </summary>
+            <param name="controller">The controller to extend.</param>
+            <param name="json">The JSON string to return in the response.</param>
+            <returns>A ContentResult object containing the JSON data ready to be parsed to an object.</returns>
+        </member>
+        <member name="M:Moviit.Mvc.Extensions.ControllerExtensions.Html(System.Web.Mvc.Controller,System.String)">
+            <summary>
+            Creates a response containing a static html file.
+            </summary>
+            <param name="controller">The controller to extend.</param>
+            <param name="path">The path to the html file.</param>
+            <returns>A FilePathResult object containing the html file data.</returns>
+        </member>
+        <member name="T:Moviit.PbbChile.Controllers.RoutingPathUsage">
+            <summary>
+            Specifies what to use the view path for.
+            </summary>
+        </member>
+        <member name="F:Moviit.PbbChile.Controllers.RoutingPathUsage.View">
+            <summary>
+            The path is used for rendering a full-layout view.
+            </summary>
+        </member>
+        <member name="F:Moviit.PbbChile.Controllers.RoutingPathUsage.PartialView">
+            <summary>
+            The path is used for rendering a partial view.
+            </summary>
+        </member>
+        <member name="F:Moviit.PbbChile.Controllers.RoutingPathUsage.Both">
+            <summary>
+            The path is used for both rendering of full-layout views and partial views.
+            </summary>
+        </member>
+        <member name="T:Moviit.PbbChile.Controllers.PartialRoutingAttribute">
+            <summary>
+            Helps Angular routing mechanisms (e.g. UI-Router) by automatically rendering the full layout or just the partial view
+            depending on the request that was made.
+            
+            -- Normally, a request made through the address bar should ask for a full-layout page.
+            In that case the partial view which should be rendered is only there as an empty dummy file.
+            The partial is loaded inside the layout view using the RenderBody() method, and from there angular takes over.
+            To facilitate this behaviour the attribute will automatically look for a partial view named _AngularRoutingHelperPartial.cshtml file
+            in the shared views folder.
+            
+            -- A request that was made by the routing mechanism through user navigation should ask for a partial view.
+            </summary>
+            <remarks>
+            To use this attribute a 'bool partial' argument should be defined in the action, and a partial view path
+            should be defined using the PartialPath attribute.
+            Note: The action body should always return a full layout view.
+            </remarks>
+        </member>
+        <member name="F:Moviit.PbbChile.Controllers.PartialRoutingAttribute.DefaultEmptyViewName">
+            <summary>
+            Defines the name of the view to look for in case the application requested a complete view,
+            But no view was provided in the attribute.
+            </summary>
+        </member>
+        <member name="P:Moviit.PbbChile.Controllers.PartialRoutingAttribute.ViewPath">
+            <summary>
+            Gets or sets the path for the complete view which will be rendered when the request contains a partial=false argument.
+            Path can point to an html file or a cshtml file.
+            If a cshtml file was specified, normal MVC lookup rules apply.
+            When specifying an html file, specify the full path (e.g. "~/App/Account/.../Profile.html").
+            If ViewPath is null or empty the filter will assume the programmer wans to use a default empty view
+            named _AngularRoutingHelperPartial.cshtml which can be found in the Shared views folder.
+            </summary>
+        </member>
+        <member name="P:Moviit.PbbChile.Controllers.PartialRoutingAttribute.PartialPath">
+            <summary>
+            Gets or sets the path for the partial view which will be rendered when the request contains a partial=true argument.
+            Path can point to an html file or a cshtml file.
+            If a cshtml file was specified, normal MVC lookup rules apply.
+            When specifying an html file, specify the full path (e.g. "~/App/Account/.../Profile.html").
+            If PartialPath is null or empty the filter will use the action name to look for the partial view file.
+            </summary>
+        </member>
+        <member name="M:Moviit.PbbChile.Controllers.PartialRoutingAttribute.#ctor(System.String,Moviit.PbbChile.Controllers.RoutingPathUsage)">
+            <summary>
+            Instantiates a new PartialRouting object.
+            </summary>
+            <param name="path">The path for the full-layout view or partial view to use when rendering.</param>
+            <param name="usage">Defines what to use the path argument for.</param>
+        </member>
+        <member name="M:Moviit.PbbChile.Controllers.PartialRoutingAttribute.#ctor(System.String,System.String)">
+            <summary>
+            Instantiates a new PartialRouting object.
+            </summary>
+            <param name="viewPath">The path for the partial view which will be rendered when the request contains a partial=true argument.</param>
+            <param name="partialPath">The path for the partial view which will be rendered when the request contains a partial=true argument.</param>
+        </member>
+        <member name="M:Moviit.PbbChile.Controllers.PartialRoutingAttribute.OnActionExecuting(System.Web.Mvc.ActionExecutingContext)">
+            <summary>
+            Checks whether the client needs a partial view or a full layout view.
+            The filter automatically changes the result's content.
+            </summary>
+            <param name="filterContext">The request context.</param>
+        </member>
+        <member name="T:Moviit.StringExtensions">
+            <summary>
+            Provides helper functions for strings.
+            </summary>
+        </member>
+        <member name="F:Moviit.StringExtensions.CasingSplitters">
+            <summary>
+            The chars used when splitting strings for case conversions.
+            </summary>
+        </member>
+        <member name="M:Moviit.StringExtensions.EncodeAsToken(System.String)">
+            <summary>
+            Encodes a token to ensure it is passed correctly in urls.
+            </summary>
+            <param name="token">The token to encode.</param>
+            <returns>The url-ready encoded token.</returns>
+        </member>
+        <member name="M:Moviit.StringExtensions.DecodeAsToken(System.String)">
+            <summary>
+            Decodes a url-ready encoded token.
+            </summary>
+            <param name="token">The encoded token.</param>
+            <returns>The decoded token ready for use.</returns>
+        </member>
+        <member name="M:Moviit.StringExtensions.ArrayToJoinString(System.Int32[],System.String)">
+            <summary>
+            Method to convert an array of ints to string separated by specified char or by default semicolon (;)
+            </summary>
+            <param name="objectArray">The array that will be converted to string</param>
+            <param name="separator">Optional parameter to indicate separator difference from semicolon (;)</param>
+            <returns>the array converted in a string separated by</returns>
+        </member>
+        <member name="M:Moviit.StringExtensions.ArrayToJoinString(System.Object[],System.String)">
+            <summary>
+            Method to convert an array of objects to string separated by specified char or by default semicolon (;)
+            </summary>
+            <param name="objectArray">The array that will be converted to string</param>
+            <param name="separator">Optional parameter to indicate separator difference from semicolon (;)</param>
+            <returns>the array converted in a string separated by</returns>
+        </member>
+        <member name="M:Moviit.StringExtensions.ToCamelCase(System.String,System.Boolean)">
+            <summary>
+            Converts the string to its camelCase representation.
+            </summary>
+            <param name="str">The string to convert.</param>
+            <param name="keepCaptials">(Optional) true to keep existing capital letters (in case the string structure is known to the programmer); otherwise false (Default is false).</param>
+            <returns>The camelCase representation of the specified string.</returns>
+        </member>
+        <member name="M:Moviit.StringExtensions.FormatRut(System.String)">
+            <summary>
+            It returns a new string with the rut formatted.
+            </summary>
+            <param name="rut">The rut.</param>
+            <returns></returns>
+        </member>
+        <member name="T:Moviit.Web.Http.ApiControllerExtensions">
+            <summary>
+            Provides extensions for API controllers.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Http.ApiControllerExtensions.Pdf(System.Web.Http.ApiController,System.Byte[],System.String)">
+            <summary>
+            Creates a response from bytes source and to return them as object in the response.
+            </summary>
+            <param name="controller">The controller to extend.</param>
+            <param name="source">The pdf as bytes.</param>
+            <param name="fileName">(Optional) The name to give to the file. If not specified a guid will be generated.</param>
+            <returns>A response message containing the pdf as byte content.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.ApiControllerExtensions.Pdf(System.Web.Http.ApiController,Moviit.Reporting.IPdfBuilder,System.String)">
+            <summary>
+            Creates a response from bytes source and to return them as object in the response.
+            </summary>
+            <param name="controller">The controller to extend.</param>
+            <param name="pdfBuilder"></param>
+            <param name="fileName">(Optional) The name to give to the file. If not specified a guid will be generated.</param>
+            <returns>A response message containing the pdf as byte content.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.ApiControllerExtensions.Excel(System.Web.Http.ApiController,System.String,System.String)">
+            <summary>
+            Creates an excel file response from an html string.
+            </summary>
+            <param name="controller">The controller to extend.</param>
+            <param name="fileName">The name to give to the downloaded file.</param>
+            <param name="html">The html to export as excel.</param>
+            <returns>A response message containing the excel as byte content.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.ApiControllerExtensions.Excel(System.Web.Http.ApiController,System.String,Moviit.IO.Export.IExcelExportable)">
+            <summary>
+            Creates an excel file response from an html string.
+            </summary>
+            <param name="controller">The controller to extend.</param>
+            <param name="fileName">The name to give to the downloaded file.</param>
+            <param name="exportable">The excel exportable object.</param>
+            <returns>A response message containing the excel as byte content.</returns>
+        </member>
+        <member name="T:Moviit.Web.Http.Filters.ValidateModelAttribute">
+            <summary>
+            Validates the model state before executing an action.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Http.Filters.ValidateModelAttribute.OnActionExecuting(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Validate the model when an action controller is executed, if isn't valid, 
+            it will generate an error response with the ModelState's errors.
+            </summary>
+            <param name="actionContext">The context in which the action was triggered.</param>
+        </member>
+        <member name="T:Moviit.Web.Http.Routing.GlobalRoutePrefixProvider">
+            <summary>
+            Provides tools to prefixing routes globally in the system.
+            Use with <code>((RouteCollection)routes).MapMvcAttributeRoutes()</code>.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Http.Routing.GlobalRoutePrefixProvider.#ctor(System.String)">
+            <summary>
+            Instantiates a new global routing prefix provider.
+            </summary>
+            <param name="globalPrefix"></param>
+        </member>
+        <member name="M:Moviit.Web.Http.Routing.GlobalRoutePrefixProvider.GetRoutePrefix(System.Web.Http.Controllers.HttpControllerDescriptor)">
+            <summary>
+            Adds the global prefix to a configured route.
+            </summary>
+            <param name="controllerDescriptor">The descripor of the controller.</param>
+            <returns>The new prefixed route.</returns>
+        </member>
+        <member name="T:Moviit.Web.Http.Uploads.App_LocalResources.Errors">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.App_LocalResources.Errors.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.App_LocalResources.Errors.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.App_LocalResources.Errors.MimeNotAllowed">
+            <summary>
+              Looks up a localized string similar to El tipo de archivo esta prohibido en este contexto.
+            </summary>
+        </member>
+        <member name="T:Moviit.Web.Http.Uploads.UploadHandler`2">
+            <summary>
+            Provides tools for handling upload of files to the server.
+            </summary>
+            <typeparam name="TKey">The type of the key used when storing the register in the database.</typeparam>
+            <typeparam name="TFile">The type of the register object (normally the entity) with the file information.</typeparam>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadHandler`2.SaveFiles(Moviit.Web.Http.Uploads.IUploadRepository{`0,`1},System.String,System.Boolean)">
+            <summary>
+            Saves all files to file system using naming by context system and records them in the database.
+            </summary>
+            <param name="repository">The repository to use to store the files and register them in the database.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <param name="registerInDataBase">(Optional) Defines if the uploaded files is going to be register in the database.</param>
+            <returns>A list of files saved from the request.</returns>
+            <exception cref="T:System.ArgumentNullException">The repository object is null.</exception>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadHandler`2.SaveFilesAsync(Moviit.Web.Http.Uploads.IUploadRepository{`0,`1},System.String,System.Boolean)">
+            <summary>
+            Saves all files to file system using naming by context system and records them in the database.
+            </summary>
+            <param name="repository">The repository to use to store the files and register them in the database.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <param name="registerInDataBase">(Optional) Defines if the uploaded files is going to be register in the database.</param>
+            <returns>A list of files saved from the request.</returns>
+            <exception cref="T:System.ArgumentNullException">The repository object is null.</exception>
+        </member>
+        <member name="T:Moviit.Web.Http.Uploads.FileUploadResult`1">
+            <summary>
+            Represents the result data of a file upload attempt.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.FileUploadResult`1.#ctor">
+            <summary>
+            Instantiates a new file upload result object.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.FileUploadResult`1.#ctor(System.Web.HttpPostedFile)">
+            <summary>
+            Instantiates a new file upload results loading the information from the sent file.
+            </summary>
+            <param name="file"></param>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.Id">
+            <summary>
+            Gets or sets the id assigned to the file.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.OriginalName">
+            <summary>
+            Gets or sets the original name of the file before generation of new name by context. 
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.Path">
+            <summary>
+            Gets or sets the relative path to the saved file.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.UrlPath">
+            <summary>
+            The url path to the saved file.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.Type">
+            <summary>
+            Gets or sets the type of the uploaded file.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.Size">
+            <summary>
+            Gets the size (in bytes) of the file.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.Error">
+            <summary>
+            Gets or sets the error message if there was an error.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.FileUploadResult`1.Success">
+            <summary>
+            Gets or sets a value indicating whether the upload was successfull.
+            </summary>
+        </member>
+        <member name="T:Moviit.Web.Http.Uploads.IUploadRepository`2">
+            <summary>
+            Provides a contract for repository wanting to implement storage of uploaded files.
+            </summary>
+            <typeparam name="TKey">The type of the key used in the database to store the file.</typeparam>
+            <typeparam name="TFile">The type of the file entry (normally the entity) returned from the database operation.</typeparam>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.IsAllowed(System.String,System.String)">
+            <summary>
+            When overriden in a derived class, checks whether the file type is allowed to be saved in the specified upload context.
+            </summary>
+            <param name="mime">The mime of the file to be saved.</param>
+            <param name="uploadContext">The context in which the upload was triggered.</param>
+            <returns>true if the mime can be saved for the specified context.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.IsAllowedAsync(System.String,System.String)">
+            <summary>
+            When overriden in a derived class, checks whether the file type is allowed to be saved in the specified upload context.
+            </summary>
+            <param name="mime">The mime of the file to be saved.</param>
+            <param name="uploadContext">The context in which the upload was triggered.</param>
+            <returns>true if the mime can be saved for the specified context.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.Register(System.Web.HttpPostedFile,System.IO.FileInfo,System.String)">
+            <summary>
+            When overriden in a derived class, registeres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="file">The file received in the multipart request.</param>
+            <param name="savedFile">The information of the new file created for the upload request.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The id of the created registery.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.RegisterAsync(System.Web.HttpPostedFile,System.IO.FileInfo,System.String)">
+            <summary>
+            When overriden in a derived class, registeres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="file">The file received in the multipart request.</param>
+            <param name="savedFile">The information of the new file created for the upload request.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The id of the created registery.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.Unregister(`0)">
+            <summary>
+            When overriden in a derived class, unregisteres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="fileId">The id of the file to unregister.</param>
+            <returns>The result of the unregistration operation.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.UnregisterAsync(`0)">
+            <summary>
+            When overriden in a derived class, unregisteres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="fileId">The id of the file to unregister.</param>
+            <returns>The result of the unregistration operation.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.GetRegistery(`0)">
+            <summary>
+            When overriden in a derived class, retrieves the entry of a saved file from the database.
+            </summary>
+            <param name="fileId">The id of the file to retrieve from the database.</param>
+            <returns>The entry of the file stored in the database.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.GetRegisteryAsync(`0)">
+            <summary>
+            When overriden in a derived class, retrieves the entry of a saved file from the database.
+            </summary>
+            <param name="fileId">The id of the file to retrieve from the database.</param>
+            <returns>The entry of the file stored in the database.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.Save(System.Web.HttpPostedFile,System.String)">
+            <summary>
+            When overriden in a derived class, saves a posted file to the server's hard drive.
+            </summary>
+            <param name="file">The file received in the multipart request.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The information of the saved file.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.Delete(System.IO.FileInfo)">
+            <summary>
+            When overriden in a derived class, deletes the specified file.
+            </summary>
+            <param name="file">The file to delete.</param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.Delete(`0)">
+            <summary>
+            When overriden in a derived class, retrieves the entry of a saved file,
+            deletes the file if successfull deletes the register in the database as well.
+            </summary>
+            <param name="fileId"></param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.DeleteAsync(`0)">
+            <summary>
+            When overriden in a derived class, retrieves the entry of a saved file,
+            deletes the file if successfull deletes the register in the database as well.
+            </summary>
+            <param name="fileId"></param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.IUploadRepository`2.CreateUrl(System.String)">
+            <summary>
+            When overriden in a derived class, forms the complete url that will permit access to the uploaded file.
+            </summary>
+            <param name="relativePath">The relative path to the file in file-system format.</param>
+            <returns>A complete url that permits access to the upload file.</returns>
+        </member>
+        <member name="T:Moviit.Web.Http.Uploads.UploadContextAttribute">
+            <summary>
+            Automatically adds or replaces the "context" param to the request before it gets analyzed.
+            This can later be picked up by <see cref="!:UploadHandler"/>.
+            Use this to decorate your <see cref="!:UploadApiController"/>s. 
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.UploadContextAttribute.Context">
+            <summary>
+            Gets or sets the context for the upload.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadContextAttribute.#ctor(System.String)">
+            <summary>
+            Instantiates a new upload context attribute.
+            </summary>
+            <param name="context">The context to define for the controller.</param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadContextAttribute.OnActionExecuting(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Adds or replaces the context to the request as a parameter.
+            </summary>
+            <param name="actionContext">The context in which the action is executing.</param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadContextAttribute.AddContext(System.Web.Http.Controllers.HttpActionContext)">
+            <summary>
+            Adds or replaces the "context" parameter to the request so it can be read later by <see cref="!:UploadHandler"/>.
+            </summary>
+            <param name="actionContext"></param>
+        </member>
+        <member name="T:Moviit.Web.Http.Uploads.UploadRepository`2">
+            <summary>
+            Provides tools for upload repositories classes to handle uploads on hard drive and database.
+            </summary>
+        </member>
+        <member name="F:Moviit.Web.Http.Uploads.UploadRepository`2.DefaultUploadPath">
+            <summary>
+            The default relative path used as the root folder when saving uploaded files.
+            </summary>
+        </member>
+        <member name="P:Moviit.Web.Http.Uploads.UploadRepository`2.RelativeUploadPath">
+            <summary>
+            It will return the default upload path in case isn't overwritten when is necessary to change the path.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.IsAllowed(System.String,System.String)">
+            <summary>
+            When overriden in a derived class, checks whether the file type is allowed to be saved in the specified upload context.
+            </summary>
+            <param name="mime">The mime of the file to be saved.</param>
+            <param name="uploadContext">The context in which the upload was triggered.</param>
+            <returns>true if the mime can be saved for the specified context.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.IsAllowedAsync(System.String,System.String)">
+            <summary>
+            When overriden in a derived class, checks whether the file type is allowed to be saved in the specified upload context.
+            </summary>
+            <param name="mime">The mime of the file to be saved.</param>
+            <param name="uploadContext">The context in which the upload was triggered.</param>
+            <returns>true if the mime can be saved for the specified context.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.Register(System.Web.HttpPostedFile,System.IO.FileInfo,System.String)">
+            <summary>
+            When overriden in a derived class, registeres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="file">The file received in the multipart request.</param>
+            <param name="savedFile">The information of the new file created for the upload request.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The result of the registration operation.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.RegisterAsync(System.Web.HttpPostedFile,System.IO.FileInfo,System.String)">
+            <summary>
+            When overriden in a derived class, registeres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="file">The file received in the multipart request.</param>
+            <param name="savedFile">The information of the new file created for the upload request.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The result of the registration operation.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.Unregister(`0)">
+            <summary>
+            When overriden in a derived class, unregisteres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="fileId">The id of the file to unregister.</param>
+            <returns>The result of the unregistration operation.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.UnregisterAsync(`0)">
+            <summary>
+            When overriden in a derived class, unregisteres a saved file in the database.
+            This should only be called after the file was successfully saved.
+            </summary>
+            <param name="fileId">The id of the file to unregister.</param>
+            <returns>The result of the unregistration operation.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.GetRegistery(`0)">
+            <summary>
+            When overriden in a derived class, retrieves the entry of a saved file from the database.
+            </summary>
+            <param name="fileId">The id of the file to retrieve from the database.</param>
+            <returns>The entry of the file stored in the database.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.GetRegisteryAsync(`0)">
+            <summary>
+            When overriden in a derived class, retrieves the entry of a saved file from the database.
+            </summary>
+            <param name="fileId">The id of the file to retrieve from the database.</param>
+            <returns>The entry of the file stored in the database.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.Save(System.Web.HttpPostedFile,System.String)">
+            <summary>
+            Saves a posted file to the server's hard drive.
+            If not overriden, the method will save the file in {ServerPath}/{RelativeUploadPath}/{GeneratedName}.
+            </summary>
+            <param name="file">The file received in the multipart request.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The information of the saved file.</returns>
+            <exception cref="T:System.IO.InvalidDataException">The file is empty.</exception>
+            <exception cref="T:System.IO.IOException">The file with the generated name already exists.</exception>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.Delete(System.IO.FileInfo)">
+            <summary>
+            Deletes the specified file.
+            </summary>
+            <param name="file">The file to delete.</param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.Delete(`0)">
+            <summary>
+            When overriden in a derived class, retrieves the entry of a saved file, deletes the file
+            and if successfull deletes the register in the database as well.
+            </summary>
+            <param name="fileId">The database id of the file to delete.</param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.DeleteAsync(`0)">
+            <summary>
+            Retrieves the entry of a saved file, deletes the file and if successfull deletes the register
+            in the database as well.
+            </summary>
+            <param name="fileId">The database id of the file to delete.</param>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.GenerateFileName(System.String,System.String)">
+            <summary>
+            Generates a new name for the file.
+            If not overriden, the following format is generated: "{uploadContext}_{Guid}{extension}".
+            </summary>
+            <param name="originalName">The original name the file was received with.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The new generated name.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.CreateRelativePath(System.String,System.String)">
+            <summary>
+            Creates the relative path for the file.
+            If not overriden, returns {RelativeUploadPath}/{uploadContext}/{fileName}.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The relative path to the new file.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.CreatePath(System.String,System.String)">
+            <summary>
+            Creates the full path to the file on the server.
+            If not overriden, returns {ServerPath}/{CreateRelativePath(filename, uploadContext)}.
+            </summary>
+            <param name="fileName">The name of the file.</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <returns>The full path to the file on the server.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.Uploads.UploadRepository`2.CreateUrl(System.String)">
+            <summary>
+            When overriden in a derived class, forms the complete url that will permit access to the uploaded file.
+            </summary>
+            <param name="relativePath">The relative path to the file in file-system format.</param>
+            <returns>A complete url that permits access to the upload file.</returns>
+        </member>
+        <member name="T:Moviit.Web.Http.UploadApiController`2">
+            <summary>
+            Provides base functionallity for a file uploads handler controller.
+            </summary>
+            <typeparam name="TKey">The type of the key used when storing the register in the database.</typeparam>
+            <typeparam name="TFile">The type of the register object (normally the entity) with the file information.</typeparam>
+        </member>
+        <member name="M:Moviit.Web.Http.UploadApiController`2.HandleUpload(Moviit.Web.Http.Uploads.IUploadRepository{`0,`1},System.String,System.Boolean)">
+            <summary>
+            Saves all files and registeres them in the database.
+            </summary>
+            <param name="repository">The repository which will be used to store the file(s).</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <param name="registerInDataBase">(Optional) Defines if the uploaded files is going to be register in the database.</param>
+            <returns>The results of the operation.</returns>
+        </member>
+        <member name="M:Moviit.Web.Http.UploadApiController`2.HandleUploadAsync(Moviit.Web.Http.Uploads.IUploadRepository{`0,`1},System.String,System.Boolean)">
+            <summary>
+            Saves all files and registeres them in the database.
+            </summary>
+            <param name="repository">The repository which will be used to store the file(s).</param>
+            <param name="uploadContext">The context in which the upload was triggered. Can be used to differentiate uploads in the database.</param>
+            <param name="registerInDataBase">(Optional) Defines if the uploaded files is going to be register in the database.</param>
+            <returns>The results of the operation.</returns>
+        </member>
+        <member name="T:Moviit.Web.Mvc.Routing.GlobalRoutePrefixProvider">
+            <summary>
+            Provides tools to prefixing routes globally in the system.
+            Use with <code>((RouteCollection)routes).MapMvcAttributeRoutes()</code>.
+            </summary>
+        </member>
+        <member name="M:Moviit.Web.Mvc.Routing.GlobalRoutePrefixProvider.#ctor(System.String)">
+            <summary>
+            Instantiates a new global routing prefix provider.
+            </summary>
+            <param name="globalPrefix"></param>
+        </member>
+        <member name="M:Moviit.Web.Mvc.Routing.GlobalRoutePrefixProvider.GetRoutePrefix(System.Web.Mvc.ControllerDescriptor)">
+            <summary>
+            Adds the global prefix to a configured route.
+            </summary>
+            <param name="controllerDescriptor">The descripor of the controller.</param>
+            <returns>The new prefixed route.</returns>
+        </member>
+        <member name="T:SqlServerTypes.Utilities">
+            <summary>
+            Utility methods related to CLR Types for SQL Server 
+            </summary>
+        </member>
+        <member name="M:SqlServerTypes.Utilities.LoadNativeAssemblies(System.String)">
+            <summary>
+            Loads the required native assemblies for the current architecture (x86 or x64)
+            </summary>
+            <param name="rootApplicationPath">
+            Root path of the current application. Use Server.MapPath(".") for ASP.NET applications
+            and AppDomain.CurrentDomain.BaseDirectory for desktop applications.
+            </param>
+        </member>
+    </members>
+</doc>

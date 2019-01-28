@@ -1,0 +1,23 @@
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\SqlServerTypes\x64\msvcr100.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\SqlServerTypes\x64\SqlServerSpatial120.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\SqlServerTypes\x86\msvcr100.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\SqlServerTypes\x86\SqlServerSpatial120.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\03 - Business Logic Layer.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\03 - Business Logic Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\03 - Business Logic Layer.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\01 - Data Access Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\02 - Business Entity Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\EntityFramework.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\DataAnnotationsExtensions.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\01 - Data Access Layer.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\01 - Data Access Layer.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\02 - Business Entity Layer.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\02 - Business Entity Layer.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\EntityFramework.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\obj\Debug\03 - Business Logic Layer.csprojAssemblyReference.cache
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\obj\Debug\03 - Business Logic Layer.csproj.CoreCompileInputs.cache
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\obj\Debug\03 - Business Logic Layer.csproj.CopyComplete
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\obj\Debug\03 - Business Logic Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\03 - Business Logic Layer\obj\Debug\03 - Business Logic Layer.pdb
