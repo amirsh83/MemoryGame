@@ -1,0 +1,45 @@
+
+<nav class="navbar navbar-dark bg-dark">
+    <nav class="navbar navbar-expand-lg navbar-light bg-dark">
+        <a class="navbar-brand" href="#">MARVEL inc. </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+          <ul class="navbar-nav">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item"  >
+              <a class="nav-link" routerLink="/login" *ngIf="!show">Login</a>
+            </li>
+            <li class="nav-item" >
+              <a class="nav-link" routerLink="/register" *ngIf="!show">Register</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" routerLink="/gameresults">Top Scores</a>
+              </li>
+              <li class="nav-item">
+                  <a class="nav-link" routerLink="/feedbacks">Feedbacks</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/feedback" *ngIf="show">Feedback</a>
+                </li>
+                <li class="nav-item" name='hideiflogin'>
+                  <a class="nav-link" routerLink="/game" *ngIf="show">Game</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" routerLink="/contact">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/about">About</a>
+                  </li>
+                  <li class="nav-item">
+                    <a class="nav-link" routerLink="/home" (click)="logout()" *ngIf="show">Logout</a>
+                  </li>
+          </ul>
+        </div>
+      </nav>
+  </nav>
+
+

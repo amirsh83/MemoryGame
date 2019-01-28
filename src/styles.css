@@ -1,0 +1,10 @@
+@import "~@angular/material/prebuilt-themes/purple-green.css";
+@import '~bootstrap/dist/css/bootstrap.min.css';
+
+html, body{
+    height: 100%;
+   background-image: url(src/assets/imageS/background-blur-blurred-1459.jpg); 
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+}

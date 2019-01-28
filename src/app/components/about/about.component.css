@@ -1,0 +1,20 @@
+h4{
+ 
+    color:darkblue;
+    text-shadow: 2px 2px black;
+    font-size: 50px;
+    text-align: center;
+}
+
+
+span {
+    color:whitesmoke;
+    text-shadow: 2px 2px black;
+    font-size: 25px;
+    text-align: center;
+    padding-left: 30px;
+}
+
+img{
+   padding-left: 25px;
+}
