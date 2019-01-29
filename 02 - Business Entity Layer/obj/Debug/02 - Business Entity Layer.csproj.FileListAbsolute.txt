@@ -1,0 +1,58 @@
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\SqlServerTypes\x64\msvcr100.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\SqlServerTypes\x64\SqlServerSpatial120.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\SqlServerTypes\x86\msvcr100.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\SqlServerTypes\x86\SqlServerSpatial120.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\02 - Business Entity Layer.dll.config
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\02 - Business Entity Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\02 - Business Entity Layer.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Antlr3.Runtime.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\AutoMapper.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\DataAnnotationsExtensions.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\EntityFramework.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\EntityFramework.SqlServer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\EPPlus.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.Owin.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.Owin.Host.SystemWeb.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.ReportViewer.Common.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.ReportViewer.DataVisualization.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.ReportViewer.ProcessingObjectModel.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.ReportViewer.WebForms.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.SqlServer.Types.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.Web.Infrastructure.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Moviit.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\MVCControlsToolkit.Owin.Globalization.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Newtonsoft.Json.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Owin.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Net.Http.Formatting.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Helpers.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Http.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Mvc.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Optimization.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Razor.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.WebPages.Deployment.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.WebPages.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.WebPages.Razor.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\WebGrease.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Antlr3.Runtime.pdb
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\AutoMapper.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\EntityFramework.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\EntityFramework.SqlServer.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\EPPlus.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.Owin.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Microsoft.Owin.Host.SystemWeb.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Moviit.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\Newtonsoft.Json.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Net.Http.Formatting.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Helpers.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Http.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Mvc.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Optimization.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.Razor.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.WebPages.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.WebPages.Deployment.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\bin\Debug\System.Web.WebPages.Razor.xml
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\obj\Debug\02 - Business Entity Layer.csprojAssemblyReference.cache
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\obj\Debug\02 - Business Entity Layer.csproj.CoreCompileInputs.cache
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\obj\Debug\02 - Business Entity Layer.csproj.CopyComplete
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\obj\Debug\02 - Business Entity Layer.dll
+C:\Programming\c#\Awesome_Memory_Game\AwesomeMemoryGame\02 - Business Entity Layer\obj\Debug\02 - Business Entity Layer.pdb
